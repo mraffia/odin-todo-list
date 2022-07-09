@@ -1,10 +1,12 @@
-const Todo = (title, description = null, dueDate = null, priority = 4) => {
+const Todo = (id, title, description = null, dueDate = null, priority = 4) => {
+    const todoId = id;
     let todoTitle = title;
     let todoDesc = description;
     let todoDueDate = dueDate;
     let todoPriority = priority;
     let completeStatus = false;
     
+    const getId = () => todoId;
     const getTitle = () => todoTitle;
     const getDescription  = () => todoDesc;
     const getDueDate = () => todoDueDate;
@@ -36,6 +38,7 @@ const Todo = (title, description = null, dueDate = null, priority = 4) => {
     } 
 
     return { 
+        getId,
         getTitle, 
         getDescription, 
         getDueDate, 
