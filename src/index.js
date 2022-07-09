@@ -11,15 +11,32 @@ function addTodo(title, description = null, dueDate = null, priority = 4) {
     return newTodo;
 }
 
-function deleteTodo(id) {
+function todoFinder(id) {
     let todoIdx = 0;
     for (let i = 0; i < currentList.length; i++) {
         if (currentList[i].getId() === id) {
             todoIdx = i;
         }
     }
+    return todoIdx;
+}
+
+function deleteTodo(id) {
+    let todoIdx = todoFinder(id);
     let removedTodo = currentList.splice(todoIdx, 1);
     return removedTodo;
+}
+
+function completeTodo(id) {
+    let todoIdx = todoFinder(id);
+    currentList[todoIdx].setComplete();
+    return currentList[todoIdx];
+}
+
+function uncompleteTodo(id) {
+    let todoIdx = todoFinder(id);
+    currentList[todoIdx].setUncomplete();
+    return currentList[todoIdx];
 }
 
 function currentPage() {

@@ -29,12 +29,12 @@ const Todo = (id, title, description = null, dueDate = null, priority = 4) => {
         todoPriority = newPriority;
     }
 
-    const toogleStatus = () => {
-        if (completeStatus === false) {
-            completeStatus = true;
-        } else {
-            completeStatus = false;
-        }
+    const setComplete = () => {
+        completeStatus = true;
+    } 
+
+    const setUncomplete = () => {
+        completeStatus = false;
     } 
 
     return { 
@@ -48,7 +48,8 @@ const Todo = (id, title, description = null, dueDate = null, priority = 4) => {
         setDesc,
         setDueDate,
         setPriority,
-        toogleStatus,
+        setComplete,
+        setUncomplete
     }
 }
 
