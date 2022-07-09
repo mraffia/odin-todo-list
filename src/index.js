@@ -27,6 +27,14 @@ function deleteTodo(id) {
     return removedTodo;
 }
 
+function editTodo(id, title, description, dueDate, priority) {
+    let todoIdx = todoFinder(id);
+    currentList[todoIdx].setTitle = title;
+    currentList[todoIdx].setDescription = description;
+    currentList[todoIdx].setDueDate = dueDate;
+    currentList[todoIdx].setPriority = priority;
+}
+
 function completeTodo(id) {
     let todoIdx = todoFinder(id);
     currentList[todoIdx].setComplete();
