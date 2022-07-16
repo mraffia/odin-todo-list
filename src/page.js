@@ -6,7 +6,7 @@ import ProfileSvg from './images/account_circle.svg';
 import InboxSvg from './images/inbox.svg';
 import ListAltSvg from './images/list_alt.svg';
 import TodaySvg from './images/today.svg';
-import CheckBoxSvg from './images/check_box_outline_blank.svg';
+import CheckBoxSvg from './images/check_box.svg';
 import Todo from './todo.js';
 
 function generatePage(pageTitle = 'Inbox') {
@@ -16,8 +16,8 @@ function generatePage(pageTitle = 'Inbox') {
     const headerLogo = document.createElement('img');
     const headerLogoName = document.createElement('div');
     const profileContainer = document.createElement('div');
-    const profilePic = document.createElement('img');
     const addTodoGeneral = document.createElement('img');
+    const profilePic = document.createElement('img');
 
     const sidebar = document.createElement('div');
     const sidebarMenuMain= document.createElement('div');
@@ -87,4 +87,11 @@ function generatePage(pageTitle = 'Inbox') {
     mainTitle.textContent = pageTitle;
     addTodoLogo.src = PlusMiniSvg;
     addTodoName.textContent = "Add Task";
+
+    headerLogoContainer.appendChild(headerLogo);
+    headerLogoContainer.appendChild(headerLogoName);
+    profileContainer.appendChild(addTodoGeneral);
+    profileContainer.appendChild(profilePic);
+    header.appendChild(headerLogoContainer);
+    header.appendChild(profileContainer);
 }
