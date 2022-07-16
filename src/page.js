@@ -21,12 +21,17 @@ function generatePage(pageTitle = 'Inbox') {
 
     const sidebar = document.createElement('div');
     const sidebarMenuMain= document.createElement('div');
-    const sidebarMenu = document.createElement('div');
-    const inboxLogo = document.createElement('img');
-    const todayLogo = document.createElement('img');
-    const sidebarTitle = document.createElement('h3');
     const sidebarMenuProjects = document.createElement('div');
+    const inboxContainer = document.createElement('div');
+    const inboxLogo = document.createElement('img');
+    const inboxName = document.createElement('div');
+    const todayContainer = document.createElement('div');
+    const todayLogo = document.createElement('img');
+    const todayName = document.createElement('div');
+    const sidebarTitle = document.createElement('h3');
+    const projectContainer = document.createElement('div');
     const projectLogo = document.createElement('img');
+    const projectName = document.createElement('div');
     const addProjectContainer = document.createElement('div');
     const addProjectLogo = document.createElement('img');
     const addProjectName = document.createElement('div');
@@ -53,11 +58,16 @@ function generatePage(pageTitle = 'Inbox') {
     sidebar.classList.add('sidebar');
     sidebarMenuMain.classList.add('sidebar-menu-main');
     sidebarMenuProjects.classList.add('sidebar-menu-projects');
-    sidebarMenu.classList.add('sidebar-menu');
+    inboxContainer.classList.add('inbox-container');
     inboxLogo.classList.add('inbox-logo');
+    inboxName.classList.add('inbox-name');
+    todayContainer.classList.add('today-container');
     todayLogo.classList.add('today-logo');
+    todayName.classList.add('today-name');
     sidebarTitle.classList.add('sidebar-title');
+    projectContainer.classList.add('project-container');
     projectLogo.classList.add('project-logo');
+    projectName.classList.add('project-name');
     addProjectContainer.classList.add('add-project-container');
     addProjectLogo.classList.add('add-project-logo');
     addProjectName.classList.add('add-project-name');
@@ -94,4 +104,20 @@ function generatePage(pageTitle = 'Inbox') {
     profileContainer.appendChild(profilePic);
     header.appendChild(headerLogoContainer);
     header.appendChild(profileContainer);
+
+    inboxContainer.appendChild(inboxLogo);
+    inboxContainer.appendChild(inboxName);
+    todayContainer.appendChild(todayLogo);
+    todayContainer.appendChild(todayName);
+    projectContainer.appendChild(projectLogo);
+    projectContainer.appendChild(projectName);
+    addProjectContainer.appendChild(addProjectLogo);
+    addProjectContainer.appendChild(addProjectName);
+    sidebarMenuMain.appendChild(inboxContainer);
+    sidebarMenuMain.appendChild(todayContainer);
+    sidebarMenuProjects.appendChild(sidebarTitle);
+    sidebarMenuProjects.appendChild(projectContainer);
+    sidebarMenuProjects.appendChild(addProjectContainer);
+    sidebar.appendChild(sidebarMenuMain);
+    sidebar.appendChild(sidebarMenuProjects);
 }
