@@ -13,11 +13,11 @@ img {
     height: 100vh;
     display: grid;
     grid-template-rows: 5vh 91vh 4vh;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 310px 5fr;
     grid-template-areas: 
     "header header"
     "sidebar main-content"
-    "footer footer";
+    "sidebar footer";
 }
 
 .header {
@@ -26,7 +26,7 @@ img {
     grid-template-columns: 4fr 1fr;
     font-weight: bold;
     background-color: #112D4E;
-    color: #DBE2EF;
+    color: white;
     padding: 0 48px 0 48px;
     align-items: center;
 }
@@ -38,7 +38,7 @@ img {
 
 .header img,
 .sidebar img {
-    filter: invert(97%) sepia(46%) saturate(747%) hue-rotate(176deg) brightness(99%) contrast(88%);
+    filter: invert(99%) sepia(3%) saturate(89%) hue-rotate(197deg) brightness(111%) contrast(100%);
 }
 
 .header-logo-name {
@@ -58,8 +58,8 @@ img {
 
 .sidebar {
     background-color: #3F72AF;
-    color: #DBE2EF;
-    padding: 20px 40px 20px 40px;
+    color: white;
+    padding: 20px 30px 20px 30px;
     grid-area: sidebar;
     display: flex;
     flex-direction: column;
@@ -71,11 +71,11 @@ img {
 .add-project-container  {
     display: flex;
     align-items: center;
-    margin: 10px 0 10px 0;
+    padding: 10px;
 }
 
 .add-project-container {
-    margin: 20px 0 20px 0;
+    margin: 10px 0 10px 0;
 }
 
 .inbox-name,
@@ -107,6 +107,7 @@ img {
     display: flex;
     align-items: center;
     margin: 10px 0 10px 0;
+    padding: 10px;
 }
 
 .single-todo-name,
@@ -116,8 +117,19 @@ img {
     margin-left: 10px;
 }
 
+.inbox-container:hover,
+.today-container:hover,
+.project-container:hover,
+.add-project-container:hover,
+.single-todo-container:hover,
+.add-todo-container:hover {
+    border-radius: 4px;
+    background-color: darkgray;
+    cursor: pointer;
+}
+
 .footer {
-    background-color: #DBE2EF;
+    background-color: #F9F7F7;
     grid-area: footer;
     display: flex;
     align-items: center;
