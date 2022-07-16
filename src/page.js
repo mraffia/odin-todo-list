@@ -2,6 +2,7 @@ import './style.css';
 import Plus from './images/add.svg';
 import PlusMini from './images/add_mini.svg';
 import DoneAll from './images/done_all.svg';
+import ProfilePic from './images/account_circle.svg';
 import Inbox from './images/inbox.svg';
 import List from './images/list_alt.svg';
 import Today from './images/today.svg';
@@ -15,7 +16,7 @@ function generatePage(pageTitle = 'inbox') {
     const headerLogoName = document.createElement('div');
     const profileContainer = document.createElement('div');
     const profilePic = document.createElement('img');
-    const addTodoGeneralSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    const addTodoGeneral = document.createElement('img');
 
     const sidebar = document.createElement('div');
     const sidebarMenuMain= document.createElement('div');
@@ -46,7 +47,7 @@ function generatePage(pageTitle = 'inbox') {
     headerLogoName.classList.add('header-logo-name');
     profileContainer.classList.add('profile-container');
     profilePic.classList.add('profile-pic');
-    addTodoGeneralSvg.classList.add('add-todo-general');
+    addTodoGeneral.classList.add('add-todo-general');
 
     sidebar.classList.add('sidebar');
     sidebarMenuMain.classList.add('sidebar-menu-main');
@@ -70,5 +71,10 @@ function generatePage(pageTitle = 'inbox') {
 
     footer.classList.add('footer');
 
+    headerLogo.src = DoneAll;
     headerLogoName.textContent = "Odin Todo List";
+    profilePic.src = ProfilePic;
+    addTodoGeneral.src = Plus;
+
+    
 }
