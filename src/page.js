@@ -1,11 +1,11 @@
 import './style.css';
-import Plus from './images/add.svg';
-import PlusMini from './images/add_mini.svg';
-import DoneAll from './images/done_all.svg';
-import ProfilePic from './images/account_circle.svg';
-import Inbox from './images/inbox.svg';
-import List from './images/list_alt.svg';
-import Today from './images/today.svg';
+import PlusSvg from './images/add.svg';
+import PlusMiniSvg from './images/add_mini.svg';
+import DoneAllSvg from './images/done_all.svg';
+import ProfileSvg from './images/account_circle.svg';
+import InboxSvg from './images/inbox.svg';
+import ListAltSvg from './images/list_alt.svg';
+import TodaySvg from './images/today.svg';
 import Todo from './todo.js';
 
 function generatePage(pageTitle = 'inbox') {
@@ -71,10 +71,14 @@ function generatePage(pageTitle = 'inbox') {
 
     footer.classList.add('footer');
 
-    headerLogo.src = DoneAll;
+    headerLogo.src = DoneAllSvg;
     headerLogoName.textContent = "Odin Todo List";
-    profilePic.src = ProfilePic;
-    addTodoGeneral.src = Plus;
+    profilePic.src = ProfileSvg;
+    addTodoGeneral.src = PlusSvg;
 
-    
+    inboxLogo.src = InboxSvg;
+    todayLogo.src = TodaySvg;
+    sidebarTitle.textContent = "Projects";
+    projectLogo.src = ListAltSvg;
+
 }
