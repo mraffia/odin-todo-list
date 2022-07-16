@@ -2,51 +2,57 @@ import './style.css';
 import Todo from './todo.js';
 import generatePage from './page.js';
 
-let currentList = [];
+let listOfProjects = {
+    "Inbox": [],
+    "Today": [],
+};
 let idCounter = 0;
 
-function addTodo(title, description = null, dueDate = null, priority = 4, project = 'inbox') {
-    const newTodo = Todo(idCounter, title, description, dueDate, priority, project);
+function addTodo(title, description = null, dueDate = null, priority = 4, project = 'Inbox') {
+    let projectName = project[0].toUpperCase() + project.slice(1).toLowerCase();
+
+    const newTodo = Todo(idCounter, title, description, dueDate, priority, projectName);
     idCounter++;
-    currentList.push(newTodo);
+    listOfProjects[projectName].push(newTodo);
+
     return newTodo;
 }
 
-function todoFinder(id) {
+function todoFinder(project, id) {
     let todoIdx = 0;
-    for (let i = 0; i < currentList.length; i++) {
-        if (currentList[i].getId() === id) {
+    for (let i = 0; i < project.length; i++) {
+        if (listOfProjects[project][i].getId() === id) {
             todoIdx = i;
         }
     }
     return todoIdx;
 }
 
-function deleteTodo(id) {
+function deleteTodo(project, id) {
     let todoIdx = todoFinder(id);
-    let removedTodo = currentList.splice(todoIdx, 1);
+    let removedTodo = listOfProjects[project].splice(todoIdx, 1);
     return removedTodo;
 }
 
-function editTodo(id, title, description, dueDate, priority, project) {
+function editTodo(project, id, title, description, dueDate, priority, newProject) {
     let todoIdx = todoFinder(id);
-    currentList[todoIdx].setTitle(title);
-    currentList[todoIdx].setDescription(description);
-    currentList[todoIdx].setDueDate(dueDate);
-    currentList[todoIdx].setPriority(priority);
-    currentList[todoIdx].setProject(project);
+    listOfProjects[project][todoIdx].setTitle(title);
+    listOfProjects[project][todoIdx].setDescription(description);
+    listOfProjects[project][todoIdx].setDueDate(dueDate);
+    listOfProjects[project][todoIdx].setPriority(priority);
+    listOfProjects[project][todoIdx].setProject(newProject);
 }
 
-function completeTodo(id) {
+function completeTodo(project, id) {
     let todoIdx = todoFinder(id);
     currentList[todoIdx].setComplete();
-    return currentList[todoIdx];
+    return listOfProjects[project][todoIdx];
 }
 
-function uncompleteTodo(id) {
+function uncompleteTodo(project, id) {
     let todoIdx = todoFinder(id);
-    currentList[todoIdx].setUncomplete();
-    return currentList[todoIdx];
+    listOfProjects[project][todoIdx].setUncomplete();
+    return listOfProjects[project][todoIdx];
 }
 
 function currentPage() {
@@ -54,3 +60,14 @@ function currentPage() {
 }
 
 currentPage();
+
+export {
+    listOfProjects,
+    idCounter,
+    addTodo,
+    todoFinder,
+    deleteTodo,
+    editTodo,
+    completeTodo,
+    uncompleteTodo
+}

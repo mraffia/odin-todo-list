@@ -8,6 +8,7 @@ import ListAltSvg from './images/list_alt.svg';
 import TodaySvg from './images/today.svg';
 import CheckBoxSvg from './images/check_box.svg';
 import Todo from './todo.js';
+import { listOfProjects, idCounter, addTodo, todoFinder, deleteTodo, editTodo, completeTodo, uncompleteTodo } from './index.js';
 
 function generatePage(pageTitle = 'Inbox') {
     const container = document.createElement('div');
@@ -116,6 +117,29 @@ function generatePage(pageTitle = 'Inbox') {
     header.appendChild(headerLogoContainer);
     header.appendChild(profileContainer);
 
+    const formProjectPopUp = document.createElement('div');
+    const formProjectContainer = document.createElement("form");
+    const formProjectName = document.createElement("input");
+    const formProjectSubmit = document.createElement("button");
+    const formProjectCancel = document.createElement("button");
+
+    formProjectPopUp.classList.add('form-project-popup');
+    formProjectContainer.classList.add('form-project-container');
+    formProjectSubmit.classList.add('btn');
+    formProjectCancel.classList.add('btn-cancel');
+    
+    formProjectPopUp.setAttribute('id', 'projectForm');
+    formProjectName.setAttribute('type', 'text');
+    formProjectName.setAttribute('placeholder', 'Project name');
+    formProjectName.setAttribute('name', 'project-name');
+    formProjectSubmit.setAttribute("type", "submit");
+    formProjectCancel.setAttribute('type', 'button');
+
+    formProjectContainer.appendChild(formProjectName);
+    formProjectContainer.appendChild(formProjectSubmit);
+    formProjectContainer.appendChild(formProjectCancel);
+    formProjectPopUp.appendChild(formProjectContainer);
+
     inboxContainer.appendChild(inboxLogo);
     inboxContainer.appendChild(inboxName);
     todayContainer.appendChild(todayLogo);
@@ -129,6 +153,7 @@ function generatePage(pageTitle = 'Inbox') {
     sidebarMenuProjects.appendChild(sidebarTitle);
     sidebarMenuProjects.appendChild(projectContainer);
     sidebarMenuProjects.appendChild(addProjectContainer);
+    sidebarMenuProjects.appendChild(formProjectPopUp);      /////
     sidebar.appendChild(sidebarMenuMain);
     sidebar.appendChild(sidebarMenuProjects);
 
@@ -145,6 +170,19 @@ function generatePage(pageTitle = 'Inbox') {
     container.appendChild(sidebar);
     container.appendChild(mainContent);
     container.appendChild(footer);
+
+    addProjectContainer.addEventListener('click', function (e) {
+        let displayType = document.getElementById("projectForm").style.display;
+        if (displayType === 'block') {
+            document.getElementById("projectForm").style.display = 'none';
+        } else {
+            document.getElementById("projectForm").style.display = 'block';
+        }
+    });
+
+    formProjectCancel.addEventListener('click', function (e) {
+        document.getElementById("projectForm").style.display = "none";
+    });
 
     return container;
 }
