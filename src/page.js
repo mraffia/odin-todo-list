@@ -6,9 +6,10 @@ import ProfileSvg from './images/account_circle.svg';
 import InboxSvg from './images/inbox.svg';
 import ListAltSvg from './images/list_alt.svg';
 import TodaySvg from './images/today.svg';
+import CheckBoxSvg from './images/check_box_outline_blank.svg';
 import Todo from './todo.js';
 
-function generatePage(pageTitle = 'inbox') {
+function generatePage(pageTitle = 'Inbox') {
     const container = document.createElement('div');
     const header = document.createElement('div');
     const headerLogoContainer = document.createElement('div');
@@ -33,7 +34,7 @@ function generatePage(pageTitle = 'inbox') {
     const mainContent = document.createElement('div');
     const mainTitle = document.createElement('h1');
     const todoContainer = document.createElement('div');
-    const singleTodo = document.createElement('div');
+    const singleTodoContainer = document.createElement('div');
     const addTodoContainer = document.createElement('div');
     const addTodoLogo = document.createElement('img');
     const addTodoName = document.createElement('div');
@@ -64,7 +65,7 @@ function generatePage(pageTitle = 'inbox') {
     mainContent.classList.add('main-content');
     mainTitle.classList.add('main-title');
     todoContainer.classList.add('todo-container');
-    singleTodo.classList.add('todo');
+    singleTodoContainer.classList.add('single-todo-container');
     addTodoContainer.classList.add('add-todo-container');
     addTodoLogo.classList.add('add-todo-logo');
     addTodoName.classList.add('add-todo-name');
@@ -80,5 +81,10 @@ function generatePage(pageTitle = 'inbox') {
     todayLogo.src = TodaySvg;
     sidebarTitle.textContent = "Projects";
     projectLogo.src = ListAltSvg;
+    addProjectLogo.src = PlusMiniSvg;
+    addProjectName.textContent = "Add Project";
 
+    mainTitle.textContent = pageTitle;
+    addTodoLogo.src = PlusMiniSvg;
+    addTodoName.textContent = "Add Task";
 }
