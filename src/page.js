@@ -107,7 +107,7 @@ function generatePage(pageTitle = 'Inbox') {
     addTodoLogo.src = PlusMiniSvg;
     addTodoName.textContent = "Add Task";
 
-    footer.innerHTML = 'By yours truly, <a href="https://github.com/mraffia"> mraffia</a>';
+    footer.innerHTML = 'By yours truly,&nbsp;<a href="https://github.com/mraffia"> mraffia</a>';
 
     headerLogoContainer.appendChild(headerLogo);
     headerLogoContainer.appendChild(headerLogoName);
