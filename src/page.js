@@ -107,6 +107,8 @@ function generatePage(pageTitle = 'Inbox') {
     addTodoLogo.src = PlusMiniSvg;
     addTodoName.textContent = "Add Task";
 
+    footer.innerHTML = 'By yours truly, <a href="https://github.com/mraffia"> mraffia</a>';
+
     headerLogoContainer.appendChild(headerLogo);
     headerLogoContainer.appendChild(headerLogoName);
     profileContainer.appendChild(addTodoGeneral);
@@ -138,4 +140,9 @@ function generatePage(pageTitle = 'Inbox') {
     todoContainer.appendChild(singleTodoContainer);
     todoContainer.appendChild(addProjectContainer);
     mainContent.appendChild(todoContainer);
+
+    container.appendChild(header);
+    container.appendChild(sidebar);
+    container.appendChild(mainContent);
+    container.appendChild(footer);
 }
