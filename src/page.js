@@ -40,6 +40,8 @@ function generatePage(pageTitle = 'Inbox') {
     const mainTitle = document.createElement('h1');
     const todoContainer = document.createElement('div');
     const singleTodoContainer = document.createElement('div');
+    const singleTodoLogo = document.createElement('img');
+    const singleTodoName = document.createElement('div');
     const addTodoContainer = document.createElement('div');
     const addTodoLogo = document.createElement('img');
     const addTodoName = document.createElement('div');
@@ -76,6 +78,8 @@ function generatePage(pageTitle = 'Inbox') {
     mainTitle.classList.add('main-title');
     todoContainer.classList.add('todo-container');
     singleTodoContainer.classList.add('single-todo-container');
+    singleTodoLogo.classList.add('single-todo-logo');
+    singleTodoName.classList.add('single-todo-name');
     addTodoContainer.classList.add('add-todo-container');
     addTodoLogo.classList.add('add-todo-logo');
     addTodoName.classList.add('add-todo-name');
@@ -88,13 +92,18 @@ function generatePage(pageTitle = 'Inbox') {
     addTodoGeneral.src = PlusSvg;
 
     inboxLogo.src = InboxSvg;
+    inboxName.textContent = "Inbox";
     todayLogo.src = TodaySvg;
+    todayName.textContent = "Today";
     sidebarTitle.textContent = "Projects";
     projectLogo.src = ListAltSvg;
+    projectName.textContent = "Some Project";
     addProjectLogo.src = PlusMiniSvg;
     addProjectName.textContent = "Add Project";
 
     mainTitle.textContent = pageTitle;
+    singleTodoLogo.src = CheckBoxSvg;
+    singleTodoName.textContent = "Some Task";
     addTodoLogo.src = PlusMiniSvg;
     addTodoName.textContent = "Add Task";
 
@@ -120,4 +129,13 @@ function generatePage(pageTitle = 'Inbox') {
     sidebarMenuProjects.appendChild(addProjectContainer);
     sidebar.appendChild(sidebarMenuMain);
     sidebar.appendChild(sidebarMenuProjects);
+
+    singleTodoContainer.appendChild(singleTodoLogo);
+    singleTodoContainer.appendChild(singleTodoName);
+    addTodoContainer.appendChild(addTodoLogo);
+    addTodoContainer.appendChild(addTodoName);
+    todoContainer.appendChild(mainTitle);
+    todoContainer.appendChild(singleTodoContainer);
+    todoContainer.appendChild(addProjectContainer);
+    mainContent.appendChild(todoContainer);
 }
