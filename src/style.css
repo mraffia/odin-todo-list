@@ -1,100 +1,94 @@
 body {
     font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-}
-
-#header {
-    padding: 16px;;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.tabs {
-    list-style-type: none;
-    margin: 0;
     padding: 0;
-    overflow: hidden;
-    background-color: #333;
-    border-radius: 6px;
-    margin-bottom: 32px;
+    margin: 0;
 }
 
-.tab {
-    float: left;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+img {
+    width: 24px;
+    height: 24px;
 }
 
-/* Change the link color to #111 (black) on hover */
-.tab:hover {
-    background-color: #000;
-    cursor: pointer;
-}
-
-.active {
-    background-color: #000;
-}
-
-.page-header,
-.home-desc,
-.contact-number-address {
-    flex: 1;
-    text-align: center;
-    width: 40vw;
-}
-
-#content,
-.home-page,
-.contact-page,
-.menu-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.menu-grid {
+.container {
+    height: 100vh;
     display: grid;
-    width: 600px;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
-    border-radius: 6px;
-    gap: 20px;
+    grid-template-rows: 1fr 10fr;
+    grid-template-columns: 1fr 5fr;
+    grid-template-areas: 
+    "header header"
+    "sidebar main-content";
 }
 
-.menu-block {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.header {
+    grid-area: header;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    gap: 16px;
+    font-weight: bold;
+    background-color: #112D4E;
+    color: #F9F7F7;
+    padding: 20px 48px 20px 48px;
     align-items: center;
-    border-radius: 6px;
-    width: 250px;
+}
+
+.header-logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.header img,
+.sidebar img {
+    filter: invert(98%) sepia(4%) saturate(30%) hue-rotate(354deg) brightness(113%) contrast(94%);
+}
+
+.header img {
+    width: 48px;
+    height: 48px;
+}
+
+.header-logo-name {
+    font-size: 24px;
+    margin-left: 10px; 
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.add-todo-general {
+    margin-right: 10px; 
+}
+
+.sidebar {
+    background-color: #3F72AF;
+    color: #F9F7F7;
     padding: 20px;
-    text-align: center;
-    border: 2px solid lightgray;
+    grid-area: sidebar;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 240px 240px;
+    gap: 50px;
+    font-weight: bold;
 }
 
-.menu-block:hover {
-    background-color: lightgray;
-    text-decoration: none;
-    cursor: pointer;
+.sidebar-logo,
+.sidebar-menu-main,
+.sidebar-menu-projects {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    gap: 16px;
+    align-items: center;
+    justify-items: center;
 }
 
-.menu-image {
-    width: 80px;
-}
-
-.banner {
-    border-radius: 6px;
-    width: 600px;
+.inbox-container,
+.today-container,
+.project-container,
+.add-project-container {
+    justify-self: start;
+    font-size: 20px;
 }
 
 #footer {

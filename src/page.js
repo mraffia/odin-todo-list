@@ -145,4 +145,8 @@ function generatePage(pageTitle = 'Inbox') {
     container.appendChild(sidebar);
     container.appendChild(mainContent);
     container.appendChild(footer);
+
+    return container;
 }
+
+export default generatePage;

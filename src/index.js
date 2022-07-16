@@ -1,5 +1,6 @@
 import './style.css';
 import Todo from './todo.js';
+import generatePage from './page.js';
 
 let currentList = [];
 let idCounter = 0;
@@ -49,7 +50,7 @@ function uncompleteTodo(id) {
 }
 
 function currentPage() {
-    return;
+    document.body.appendChild(generatePage());
 }
 
 currentPage();
