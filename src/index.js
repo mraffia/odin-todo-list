@@ -49,10 +49,7 @@ function uncompleteTodo(id) {
 }
 
 function currentPage() {
-    let addExample = addTodo('Bruh');
-    console.log(currentList.length);
-    deleteTodo(0);
-    console.log(currentList.length);
+    return;
 }
 
 currentPage();
