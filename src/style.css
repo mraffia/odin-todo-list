@@ -23,10 +23,9 @@ img {
     grid-area: header;
     display: grid;
     grid-template-columns: 4fr 1fr;
-    gap: 16px;
     font-weight: bold;
     background-color: #112D4E;
-    color: #F9F7F7;
+    color: #DBE2EF;
     padding: 20px 48px 20px 48px;
     align-items: center;
 }
@@ -58,37 +57,41 @@ img {
 }
 
 .add-todo-general {
-    margin-right: 10px; 
+    margin-right: 20px; 
 }
 
 .sidebar {
     background-color: #3F72AF;
-    color: #F9F7F7;
+    color: #DBE2EF;
     padding: 20px;
     grid-area: sidebar;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 240px 240px;
-    gap: 50px;
+    display: flex;
+    flex-direction: column;
     font-weight: bold;
-}
-
-.sidebar-logo,
-.sidebar-menu-main,
-.sidebar-menu-projects {
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-    gap: 16px;
-    align-items: center;
-    justify-items: center;
 }
 
 .inbox-container,
 .today-container,
 .project-container,
+.add-project-container  {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    gap: 10px;
+    align-items: center;
+    justify-items: center;
+    margin: 10px 0 10px 0;
+}
+
 .add-project-container {
+    margin: 20px 0 20px 0;
+}
+
+.inbox-name,
+.today-name,
+.project-name,
+.add-project-name {
     justify-self: start;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 #footer {

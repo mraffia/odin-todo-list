@@ -138,7 +138,7 @@ function generatePage(pageTitle = 'Inbox') {
     addTodoContainer.appendChild(addTodoName);
     todoContainer.appendChild(mainTitle);
     todoContainer.appendChild(singleTodoContainer);
-    todoContainer.appendChild(addProjectContainer);
+    todoContainer.appendChild(addTodoContainer);
     mainContent.appendChild(todoContainer);
 
     container.appendChild(header);
