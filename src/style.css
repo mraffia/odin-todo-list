@@ -99,15 +99,18 @@ img {
 }
 
 .todo-container {
-    width: 800px;
+    width: 1000px;
 }
 
 .single-todo-container,
 .add-todo-container {
     display: flex;
     align-items: center;
-    margin: 10px 0 10px 0;
     padding: 10px;
+}
+
+.add-todo-container {
+    margin: 10px 0 10px 0;
 }
 
 .single-todo-name,
@@ -128,11 +131,12 @@ img {
     cursor: pointer;
 }
 
+/* Pop Up Form Reference: https://www.w3schools.com/howto/howto_js_popup_form.asp */
+
 /* The popup form - hidden by default */
 .form-project-popup {
     display: none;
-    border: 3px solid #f1f1f1;
-    z-index: 9;
+    border: 3px solid #F9F7F7;
     border-radius: 4px;
 }
 
@@ -140,37 +144,59 @@ img {
 .form-project-container {
     padding: 10px;
     background-color: #F9F7F7;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    "label label" 
+    "input input"
+    "add cancel";
+}
+
+.form-project-container label {
+    margin-bottom: 10px;
+    color: black;
+    font-size: 14px;
 }
 
 /* Full-width input fields */
 .form-project-container input[type=text] {
-    padding: 15px;
-    margin: 5px 0 22px 0;
+    padding: 16px;
+    margin-bottom: 10px;
     border: none;
-    background: #f1f1f1;
+    background: #DBE2EF;
+    border-radius: 4px;
+    grid-area: input;
+    opacity: 0.8;
 }
   
   /* When the inputs get focus, do something */
 .form-project-container input[type=text]:focus {
-    background-color: #ddd;
+    opacity: 1;
     outline: none;
 }
   
   /* Set a style for the submit/login button */
-.form-project-container button {
+.form-project-container .btn,
+.form-project-container .btn-cancel {
     background-color: #04AA6D;
     color: white;
-    padding: 16px 20px;
+    padding: 16px;
     border: none;
     cursor: pointer;
-    width: 100%;
-    margin-bottom:10px;
     opacity: 0.8;
+    border-radius: 4px;
 }
   
+/* Add a red background color to the cancel button */
+.form-project-container .btn {
+    grid-area: add;
+    margin-right: 5px;
+}
   /* Add a red background color to the cancel button */
 .form-project-container .btn-cancel {
     background-color: red;
+    grid-area: cancel;
+    margin-left: 5px;
 }
   
   /* Add some hover effects to buttons */

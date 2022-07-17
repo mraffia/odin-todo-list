@@ -8,7 +8,7 @@ import ListAltSvg from './images/list_alt.svg';
 import TodaySvg from './images/today.svg';
 import CheckBoxSvg from './images/check_box.svg';
 import Todo from './todo.js';
-import { listOfProjects, idCounter, addTodo, todoFinder, deleteTodo, editTodo, completeTodo, uncompleteTodo } from './index.js';
+import { listOfProjects, idCounter, addProject, addTodo, todoFinder, deleteTodo, editTodo, completeTodo, uncompleteTodo } from './index.js';
 
 function generatePage(pageTitle = 'Inbox') {
     const container = document.createElement('div');
@@ -119,6 +119,7 @@ function generatePage(pageTitle = 'Inbox') {
 
     const formProjectPopUp = document.createElement('div');
     const formProjectContainer = document.createElement("form");
+    const formProjectLabel = document.createElement("label");
     const formProjectName = document.createElement("input");
     const formProjectSubmit = document.createElement("button");
     const formProjectCancel = document.createElement("button");
@@ -128,13 +129,21 @@ function generatePage(pageTitle = 'Inbox') {
     formProjectSubmit.classList.add('btn');
     formProjectCancel.classList.add('btn-cancel');
     
+    formProjectLabel.setAttribute('for', 'project-name');
     formProjectPopUp.setAttribute('id', 'projectForm');
     formProjectName.setAttribute('type', 'text');
-    formProjectName.setAttribute('placeholder', 'Project name');
+    formProjectName.setAttribute('placeholder', 'Project Name');
     formProjectName.setAttribute('name', 'project-name');
     formProjectSubmit.setAttribute("type", "submit");
     formProjectCancel.setAttribute('type', 'button');
 
+    formProjectName.required = true;
+
+    formProjectLabel.textContent = "Project Name";
+    formProjectSubmit.textContent = "Add";
+    formProjectCancel.textContent = "Cancel";
+
+    formProjectContainer.appendChild(formProjectLabel);
     formProjectContainer.appendChild(formProjectName);
     formProjectContainer.appendChild(formProjectSubmit);
     formProjectContainer.appendChild(formProjectCancel);
@@ -153,7 +162,7 @@ function generatePage(pageTitle = 'Inbox') {
     sidebarMenuProjects.appendChild(sidebarTitle);
     sidebarMenuProjects.appendChild(projectContainer);
     sidebarMenuProjects.appendChild(addProjectContainer);
-    sidebarMenuProjects.appendChild(formProjectPopUp);      /////
+    sidebarMenuProjects.appendChild(formProjectPopUp);
     sidebar.appendChild(sidebarMenuMain);
     sidebar.appendChild(sidebarMenuProjects);
 
@@ -172,8 +181,7 @@ function generatePage(pageTitle = 'Inbox') {
     container.appendChild(footer);
 
     addProjectContainer.addEventListener('click', function (e) {
-        let displayType = document.getElementById("projectForm").style.display;
-        if (displayType === 'block') {
+        if (document.getElementById("projectForm").style.display === 'block') {
             document.getElementById("projectForm").style.display = 'none';
         } else {
             document.getElementById("projectForm").style.display = 'block';
@@ -182,6 +190,11 @@ function generatePage(pageTitle = 'Inbox') {
 
     formProjectCancel.addEventListener('click', function (e) {
         document.getElementById("projectForm").style.display = "none";
+    });
+
+    formProjectContainer.addEventListener('submit', function (e) {
+        e.preventDefault();
+        console.log(e.target['project-name'].value);
     });
 
     return container;

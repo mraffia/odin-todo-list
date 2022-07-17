@@ -8,6 +8,11 @@ let listOfProjects = {
 };
 let idCounter = 0;
 
+function addProject(project) {
+    let projectName = project[0].toUpperCase() + project.slice(1).toLowerCase();
+    listOfProjects[projectName] = [];
+}
+
 function addTodo(title, description = null, dueDate = null, priority = 4, project = 'Inbox') {
     let projectName = project[0].toUpperCase() + project.slice(1).toLowerCase();
 
@@ -64,6 +69,7 @@ currentPage();
 export {
     listOfProjects,
     idCounter,
+    addProject,
     addTodo,
     todoFinder,
     deleteTodo,
