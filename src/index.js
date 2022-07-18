@@ -2,7 +2,7 @@ import './style.css';
 import Todo from './todo.js';
 import generatePage from './page.js';
 
-function addTodo(listOfProjects, id, title, description = null, dueDate = null, priority = 'normal', project = 'Inbox') {
+function addTodo(listOfProjects, id, title, description = '', dueDate = '', priority = 'normal', project = 'Inbox') {
     const newTodo = Todo(id, title, description, dueDate, priority, project);
     listOfProjects[project].push(newTodo);
 

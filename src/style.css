@@ -125,9 +125,13 @@ img {
     margin-left: 10px;
 }
 
-.single-todo-delete-button {
+.single-todo-duedate {
     margin-left: auto;
+}
+
+.single-todo-delete-button {
     opacity: 0.8;
+    margin-left: 10px;
 }
 
 .single-todo-delete-button:hover {

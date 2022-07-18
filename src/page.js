@@ -11,7 +11,7 @@ import Todo from './todo.js';
 import { addTodo, todoFinder, deleteTodo, editTodo, completeTodo, uncompleteTodo } from './index.js';
 
 let listOfProjects = { "Inbox": [], "Today": [] };
-let todoIdCounter = 0;
+let todoIds = 0;
 let currentProjectPage = "Inbox";
 
 const container = document.createElement('div');
@@ -292,14 +292,13 @@ function generatePage() {
     formTodoContainer.addEventListener('submit', function (e) {
         e.preventDefault();
         const todoTitle = e.target['todo-name'].value;
+        const todoDesc = e.target['todo-desc'].value;
+        const todoDueDate = e.target['todo-duedate'].value;
+        const todoPriority = e.target['todo-priority'].value;
         const todoProject = e.target['todo-project'].value;
 
-        // console.log(e.target['todo-desc'].value === '');
-        // console.log(e.target['todo-duedate'].value === '');
-        // console.log(e.target['todo-priority'].value);
-
-        addTodo(listOfProjects, todoIdCounter, todoTitle);
-        todoIdCounter++;
+        addTodo(listOfProjects, todoIds, todoTitle, todoDesc, todoDueDate, todoPriority, todoProject);
+        todoIds++;
 
         formTodoContainer.reset()
         formTodoPopUp.style.display = "none";
@@ -371,17 +370,20 @@ function createTodoDisplay(taskIdx, project) {
     const singleTodoSubContainer = document.createElement('div');
     const singleTodoLogo = document.createElement('img');
     const singleTodoName = document.createElement('div');
+    const singleTodoDueDate = document.createElement('div');
     const singleTodoDeleteButton = document.createElement('img');
 
     singleTodoSubContainer.classList.add('single-todo-sub-container');
     singleTodoLogo.classList.add('single-todo-logo');
     singleTodoName.classList.add('single-todo-name');
+    singleTodoDueDate.classList.add('single-todo-duedate');
     singleTodoDeleteButton.classList.add('single-todo-delete-button');
 
     singleTodoSubContainer.setAttribute('id', theTodo.getId());
 
     singleTodoLogo.src = CheckBoxSvg;
     singleTodoName.textContent = theTodo.getTitle();
+    singleTodoDueDate.textContent = theTodo.getDueDate();
     singleTodoDeleteButton.src = CloseSvg;
 
     singleTodoDeleteButton.style.display = "none";
@@ -409,6 +411,7 @@ function createTodoDisplay(taskIdx, project) {
 
     singleTodoSubContainer.appendChild(singleTodoLogo);
     singleTodoSubContainer.appendChild(singleTodoName);
+    singleTodoSubContainer.appendChild(singleTodoDueDate);
     singleTodoSubContainer.appendChild(singleTodoDeleteButton);
 
     return singleTodoSubContainer;
