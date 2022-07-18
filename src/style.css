@@ -17,7 +17,7 @@ img {
     grid-template-areas: 
     "header header"
     "sidebar main-content"
-    "sidebar footer";
+    "footer footer";
 }
 
 .header {
@@ -104,7 +104,7 @@ img {
 }
 
 .todo-container {
-    width: 800px;
+    width: 600px;
 }
 
 .single-todo-container,
@@ -115,7 +115,7 @@ img {
 }
 
 .add-todo-container {
-    margin: 10px 0 10px 0;
+    margin: 10px 0 0 0;
 }
 
 .single-todo-name,
@@ -137,9 +137,10 @@ img {
 }
 
 /* Pop Up Form Reference: https://www.w3schools.com/howto/howto_js_popup_form.asp */
-.form-project-popup {
+.form-project-popup,
+.form-todo-popup {
     display: none;
-    border: 3px solid #F9F7F7;
+    border: 4px solid #F9F7F7;
     border-radius: 4px;
 }
 
@@ -149,15 +150,9 @@ img {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-    "label label" 
     "input input"
     "add cancel";
-}
-
-.form-project-container label {
-    margin-bottom: 10px;
-    color: black;
-    font-size: 14px;
+    border-radius: 4px;
 }
 
 .form-project-container input[type=text] {
@@ -201,8 +196,87 @@ img {
     opacity: 1;
 }
 
-.footer {
+.form-todo-container {
+    padding: 10px;
     background-color: #F9F7F7;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    "name name"
+    "desc desc"
+    "duedate duedate"
+    "priority priority"
+    "projects projects"
+    "todoAdd todoCancel";
+}
+
+.form-todo-container input[type=text],
+#todo-priority,
+#todo-project,
+#todo-duedate {
+    padding: 16px;
+    margin-bottom: 10px;
+    border: none;
+    background: #DBE2EF;
+    border-radius: 4px;
+    opacity: 0.8;
+}
+
+.form-todo-container input[type=text]:focus,
+#todo-priority:focus,
+#todo-project:focus {
+    opacity: 1;
+    outline: none;
+}
+
+#todo-name {
+    grid-area: name;
+}
+
+#todo-desc {
+    grid-area: desc;
+}
+
+#todo-duedate {
+    grid-area: duedate;
+}
+
+#todo-priority {
+    grid-area: priority;
+}
+
+#todo-project {
+    grid-area: projects;
+}
+
+.form-todo-container .btn,
+.form-todo-container .btn-cancel {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    border-radius: 4px;
+}
+
+.form-todo-container .btn {
+    grid-area: todoAdd;
+    margin-right: 5px;
+}
+
+.form-todo-container .btn-cancel {
+    background-color: red;
+    grid-area: todoCancel;
+    margin-left: 5px;
+}
+
+.form-todo-container button:hover {
+    opacity: 1;
+}
+
+.footer {
+    background-color: #DBE2EF;
     grid-area: footer;
     display: flex;
     align-items: center;

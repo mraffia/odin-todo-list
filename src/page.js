@@ -117,7 +117,6 @@ header.appendChild(profileContainer);
 
 const formProjectPopUp = document.createElement('div');
 const formProjectContainer = document.createElement("form");
-const formProjectLabel = document.createElement("label");
 const formProjectName = document.createElement("input");
 const formProjectSubmit = document.createElement("button");
 const formProjectCancel = document.createElement("button");
@@ -127,8 +126,7 @@ formProjectContainer.classList.add('form-project-container');
 formProjectSubmit.classList.add('btn');
 formProjectCancel.classList.add('btn-cancel');
 
-formProjectLabel.setAttribute('for', 'project-name');
-formProjectPopUp.setAttribute('id', 'projectForm');
+formProjectPopUp.setAttribute('id', 'projectPopUpForm');
 formProjectName.setAttribute('type', 'text');
 formProjectName.setAttribute('placeholder', 'Project Name');
 formProjectName.setAttribute('name', 'project-name');
@@ -137,11 +135,9 @@ formProjectCancel.setAttribute('type', 'button');
 
 formProjectName.required = true;
 
-formProjectLabel.textContent = "Project Name";
 formProjectSubmit.textContent = "Add";
 formProjectCancel.textContent = "Cancel";
 
-formProjectContainer.appendChild(formProjectLabel);
 formProjectContainer.appendChild(formProjectName);
 formProjectContainer.appendChild(formProjectSubmit);
 formProjectContainer.appendChild(formProjectCancel);
@@ -159,11 +155,77 @@ sidebarMenuMain.appendChild(inboxContainer);
 sidebarMenuMain.appendChild(todayContainer);
 sidebarMenuProjects.appendChild(sidebarTitle);
 sidebarMenuProjects.appendChild(projectContainer);
-
 sidebarMenuProjects.appendChild(addProjectContainer);
 sidebarMenuProjects.appendChild(formProjectPopUp);
 sidebar.appendChild(sidebarMenuMain);
 sidebar.appendChild(sidebarMenuProjects);
+
+const formTodoPopUp = document.createElement('div');
+const formTodoContainer = document.createElement("form");
+const formTodoName = document.createElement("input");
+const formTodoDesc = document.createElement("input");
+const formTodoDueDate = document.createElement("input");
+const formTodoPriority = document.createElement("select");
+const formTodoPriorityUrgent = document.createElement("option");
+const formTodoPriorityNormal = document.createElement("option");
+const formTodoProject = document.createElement("select");
+const formTodoSubmit = document.createElement("button");
+const formTodoCancel = document.createElement("button");
+
+formTodoPopUp.classList.add('form-todo-popup');
+formTodoContainer.classList.add('form-todo-container');
+formTodoSubmit.classList.add('btn');
+formTodoCancel.classList.add('btn-cancel');
+
+formTodoPopUp.setAttribute('id', 'todoPopUpForm');
+formTodoName.setAttribute('type', 'text');
+formTodoName.setAttribute('placeholder', 'Task name');
+formTodoName.setAttribute('name', 'todo-name');
+formTodoName.setAttribute('id', 'todo-name');
+formTodoDesc.setAttribute('type', 'text');
+formTodoDesc.setAttribute('placeholder', 'Description');
+formTodoDesc.setAttribute('name', 'todo-desc');
+formTodoDesc.setAttribute('id', 'todo-desc');
+formTodoDueDate.setAttribute('type', 'date');
+formTodoDueDate.setAttribute('name', 'todo-duedate');;
+formTodoDueDate.setAttribute('id', 'todo-duedate');
+formTodoPriority.setAttribute('name', 'todo-priority');
+formTodoPriority.setAttribute('id', 'todo-priority');
+formTodoPriorityUrgent.setAttribute('value', 'urgent');
+formTodoPriorityNormal.setAttribute('value', 'normal');
+formTodoProject.setAttribute('name', 'todo-project');
+formTodoProject.setAttribute('id', 'todo-project');
+formTodoSubmit.setAttribute("type", "submit");
+formTodoCancel.setAttribute('type', 'button');
+
+formTodoName.required = true;
+formTodoPriorityNormal.selected = true;
+
+formTodoSubmit.textContent = "Add";
+formTodoCancel.textContent = "Cancel";
+formTodoPriorityUrgent.textContent = "Urgent";
+formTodoPriorityNormal.textContent = "Normal";
+
+for (const project in listOfProjects) {
+    const formTodoProjectOption = document.createElement("option");
+    formTodoProjectOption.setAttribute('value', project);
+    formTodoProjectOption.textContent = project;
+    if (project === 'Inbox') {
+        formTodoProjectOption.selected = true;
+    }
+    formTodoProject.appendChild(formTodoProjectOption);
+}
+
+formTodoPriority.appendChild(formTodoPriorityUrgent);
+formTodoPriority.appendChild(formTodoPriorityNormal);
+formTodoContainer.appendChild(formTodoName);
+formTodoContainer.appendChild(formTodoDesc);
+formTodoContainer.appendChild(formTodoDueDate);
+formTodoContainer.appendChild(formTodoPriority);
+formTodoContainer.appendChild(formTodoProject);
+formTodoContainer.appendChild(formTodoSubmit);
+formTodoContainer.appendChild(formTodoCancel);
+formTodoPopUp.appendChild(formTodoContainer);
 
 singleTodoContainer.appendChild(singleTodoLogo);
 singleTodoContainer.appendChild(singleTodoName);
@@ -172,6 +234,7 @@ addTodoContainer.appendChild(addTodoName);
 todoContainer.appendChild(mainTitle);
 todoContainer.appendChild(singleTodoContainer);
 todoContainer.appendChild(addTodoContainer);
+todoContainer.appendChild(formTodoPopUp);
 mainContent.appendChild(todoContainer);
 
 container.appendChild(header);
@@ -210,6 +273,19 @@ function generatePage() {
         projectContainer.textContent = '';
         displayAllProjects();
         console.log(listOfProjects);
+    });
+
+    addTodoContainer.addEventListener('click', function (e) {
+        if (formTodoPopUp.style.display === 'block') {
+            formTodoPopUp.style.display = 'none';
+        } else {
+            formTodoPopUp.style.display = 'block';
+        }
+    });
+
+    formTodoCancel.addEventListener('click', function (e) {
+        formTodoContainer.reset()
+        formTodoPopUp.style.display = "none";
     });
 
     return container;
@@ -268,12 +344,6 @@ function displayAllProjects() {
             }
         }
     }
-}
-
-function deleteProject(e) {
-    delete listOfProjects[e];
-    projectContainer.textContent = '';
-    displayAllProjects();
 }
 
 export default generatePage;
