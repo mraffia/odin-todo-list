@@ -12,6 +12,7 @@ import { addTodo, todoFinder, deleteTodo, editTodo, completeTodo, uncompleteTodo
 
 let listOfProjects = { "Inbox": [], "Today": [] };
 let todoIdCounter = 0;
+let currentProjectPage = "Inbox";
 
 const container = document.createElement('div');
 const header = document.createElement('div');
@@ -293,15 +294,18 @@ function generatePage() {
         const todoTitle = e.target['todo-name'].value;
         const todoProject = e.target['todo-project'].value;
 
+        // console.log(e.target['todo-desc'].value === '');
+        // console.log(e.target['todo-duedate'].value === '');
+        // console.log(e.target['todo-priority'].value);
+
         addTodo(listOfProjects, todoIdCounter, todoTitle);
         todoIdCounter++;
-
-        console.log(listOfProjects);
 
         formTodoContainer.reset()
         formTodoPopUp.style.display = "none";
         singleTodoContainer.textContent = '';
         displayAllTodos(todoProject);
+        console.log(listOfProjects);
     });
 
     return container;
@@ -374,7 +378,7 @@ function createTodoDisplay(taskIdx, project) {
     singleTodoName.classList.add('single-todo-name');
     singleTodoDeleteButton.classList.add('single-todo-delete-button');
 
-    singleTodoSubContainer.setAttribute('id', theTodo.getTitle());
+    singleTodoSubContainer.setAttribute('id', theTodo.getId());
 
     singleTodoLogo.src = CheckBoxSvg;
     singleTodoName.textContent = theTodo.getTitle();
@@ -390,16 +394,18 @@ function createTodoDisplay(taskIdx, project) {
         singleTodoDeleteButton.style.display = "none";
     });
 
-    // singleTodoDeleteButton.addEventListener('click', function (e) {
-    //     const todoId = e.target.id;
-    //     const confirmDelete = confirm("Are you sure you want to delete the task \"" + projectTitle + "\"?");
-    //     if (confirmDelete) {
-    //         delete listOfProjects[project][todoId];
-    //         singleTodoContainer.textContent = '';
-    //         displayAllTodos();
-    //         console.log(listOfProjects);
-    //     }
-    // });
+    singleTodoDeleteButton.addEventListener('click', function (e) {
+        const todoId = e.target.parentElement.id;
+        console.log(e.target.parentElement.id);
+        const confirmDelete = confirm("Are you sure you want to delete the task?");
+        if (confirmDelete) {
+            deleteTodo(listOfProjects, currentProjectPage, todoId);
+
+            singleTodoContainer.textContent = '';
+            displayAllTodos(currentProjectPage);
+            console.log(listOfProjects);
+        }
+    });
 
     singleTodoSubContainer.appendChild(singleTodoLogo);
     singleTodoSubContainer.appendChild(singleTodoName);

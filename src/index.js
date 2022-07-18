@@ -11,8 +11,8 @@ function addTodo(listOfProjects, id, title, description = null, dueDate = null, 
 
 function todoFinder(listOfProjects, project, id) {
     let todoIdx = 0;
-    for (let i = 0; i < project.length; i++) {
-        if (listOfProjects[project][i].getId() === id) {
+    for (let i = 0; i < listOfProjects[project].length; i++) {
+        if (listOfProjects[project][i].getId() === Number(id)) {
             todoIdx = i;
         }
     }
@@ -20,7 +20,8 @@ function todoFinder(listOfProjects, project, id) {
 }
 
 function deleteTodo(listOfProjects, project, id) {
-    let todoIdx = todoFinder(id);
+    let todoIdx = todoFinder(listOfProjects, project, id);
+
     let removedTodo = listOfProjects[project].splice(todoIdx, 1);
     return removedTodo;
 }
