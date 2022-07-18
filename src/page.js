@@ -11,7 +11,7 @@ import Todo from './todo.js';
 import { addTodo, todoFinder, deleteTodo, editTodo, completeTodo, uncompleteTodo } from './index.js';
 
 let listOfProjects = { "Inbox": [], "Today": [] };
-let idCounter = 0;
+let todoIdCounter = 0;
 
 const container = document.createElement('div');
 const header = document.createElement('div');
@@ -286,6 +286,18 @@ function generatePage() {
     formTodoCancel.addEventListener('click', function (e) {
         formTodoContainer.reset()
         formTodoPopUp.style.display = "none";
+    });
+
+    formTodoContainer.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const todoTitle = e.target['todo-name'].value;
+        
+        addTodo(listOfProjects, todoIdCounter, todoTitle);
+        todoIdCounter++;
+
+        formTodoContainer.reset()
+        formTodoPopUp.style.display = "none";
+        console.log(listOfProjects);
     });
 
     return container;
