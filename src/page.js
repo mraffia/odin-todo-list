@@ -42,8 +42,8 @@ const mainContent = document.createElement('div');
 const mainTitle = document.createElement('h1');
 const todoContainer = document.createElement('div');
 const singleTodoContainer = document.createElement('div');
-const singleTodoLogo = document.createElement('img');
-const singleTodoName = document.createElement('div');
+// const singleTodoLogo = document.createElement('img');
+// const singleTodoName = document.createElement('div');
 const addTodoContainer = document.createElement('div');
 const addTodoLogo = document.createElement('img');
 const addTodoName = document.createElement('div');
@@ -79,8 +79,8 @@ mainContent.classList.add('main-content');
 mainTitle.classList.add('main-title');
 todoContainer.classList.add('todo-container');
 singleTodoContainer.classList.add('single-todo-container');
-singleTodoLogo.classList.add('single-todo-logo');
-singleTodoName.classList.add('single-todo-name');
+// singleTodoLogo.classList.add('single-todo-logo');
+// singleTodoName.classList.add('single-todo-name');
 addTodoContainer.classList.add('add-todo-container');
 addTodoLogo.classList.add('add-todo-logo');
 addTodoName.classList.add('add-todo-name');
@@ -102,8 +102,8 @@ addProjectLogo.src = PlusMiniSvg;
 addProjectName.textContent = "Add Project";
 
 mainTitle.textContent = "Inbox";
-singleTodoLogo.src = CheckBoxSvg;
-singleTodoName.textContent = "Some Task";
+// singleTodoLogo.src = CheckBoxSvg;
+// singleTodoName.textContent = "Some Task";
 addTodoLogo.src = PlusMiniSvg;
 addTodoName.textContent = "Add Task";
 
@@ -227,8 +227,8 @@ formTodoContainer.appendChild(formTodoSubmit);
 formTodoContainer.appendChild(formTodoCancel);
 formTodoPopUp.appendChild(formTodoContainer);
 
-singleTodoContainer.appendChild(singleTodoLogo);
-singleTodoContainer.appendChild(singleTodoName);
+// singleTodoContainer.appendChild(singleTodoLogo);
+// singleTodoContainer.appendChild(singleTodoName);
 addTodoContainer.appendChild(addTodoLogo);
 addTodoContainer.appendChild(addTodoName);
 todoContainer.appendChild(mainTitle);
@@ -291,13 +291,17 @@ function generatePage() {
     formTodoContainer.addEventListener('submit', function (e) {
         e.preventDefault();
         const todoTitle = e.target['todo-name'].value;
-        
+        const todoProject = e.target['todo-project'].value;
+
         addTodo(listOfProjects, todoIdCounter, todoTitle);
         todoIdCounter++;
 
+        console.log(listOfProjects);
+
         formTodoContainer.reset()
         formTodoPopUp.style.display = "none";
-        console.log(listOfProjects);
+        singleTodoContainer.textContent = '';
+        displayAllTodos(todoProject);
     });
 
     return container;
@@ -352,9 +356,61 @@ function displayAllProjects() {
     if (Object.keys(listOfProjects).length > 2) {
         for (const project in listOfProjects) {
             if (project !== "Inbox" && project !== "Today") {
-                projectContainer.appendChild(createProjectDisplay(project, listOfProjects[project]));
+                projectContainer.appendChild(createProjectDisplay(project));
             }
         }
+    }
+}
+
+function createTodoDisplay(taskIdx, project) {
+    const theTodo = listOfProjects[project][taskIdx];
+    const singleTodoSubContainer = document.createElement('div');
+    const singleTodoLogo = document.createElement('img');
+    const singleTodoName = document.createElement('div');
+    const singleTodoDeleteButton = document.createElement('img');
+
+    singleTodoSubContainer.classList.add('single-todo-sub-container');
+    singleTodoLogo.classList.add('single-todo-logo');
+    singleTodoName.classList.add('single-todo-name');
+    singleTodoDeleteButton.classList.add('single-todo-delete-button');
+
+    singleTodoSubContainer.setAttribute('id', theTodo.getTitle());
+
+    singleTodoLogo.src = CheckBoxSvg;
+    singleTodoName.textContent = theTodo.getTitle();
+    singleTodoDeleteButton.src = CloseSvg;
+
+    singleTodoDeleteButton.style.display = "none";
+
+    singleTodoSubContainer.addEventListener('mouseover', function (e) {
+        singleTodoDeleteButton.style.display = "block";
+    });
+
+    singleTodoSubContainer.addEventListener('mouseout', function (e) {
+        singleTodoDeleteButton.style.display = "none";
+    });
+
+    // singleTodoDeleteButton.addEventListener('click', function (e) {
+    //     const todoId = e.target.id;
+    //     const confirmDelete = confirm("Are you sure you want to delete the task \"" + projectTitle + "\"?");
+    //     if (confirmDelete) {
+    //         delete listOfProjects[project][todoId];
+    //         singleTodoContainer.textContent = '';
+    //         displayAllTodos();
+    //         console.log(listOfProjects);
+    //     }
+    // });
+
+    singleTodoSubContainer.appendChild(singleTodoLogo);
+    singleTodoSubContainer.appendChild(singleTodoName);
+    singleTodoSubContainer.appendChild(singleTodoDeleteButton);
+
+    return singleTodoSubContainer;
+}
+
+function displayAllTodos(project) {
+    for (let i = 0; i < listOfProjects[project].length; i++) {
+        singleTodoContainer.appendChild(createTodoDisplay(i, project));
     }
 }
 

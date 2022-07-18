@@ -107,7 +107,7 @@ img {
     width: 600px;
 }
 
-.single-todo-container,
+.single-todo-sub-container,
 .add-todo-container {
     display: flex;
     align-items: center;
@@ -125,11 +125,20 @@ img {
     margin-left: 10px;
 }
 
+.single-todo-delete-button {
+    margin-left: auto;
+    opacity: 0.8;
+}
+
+.single-todo-delete-button:hover {
+    opacity: 1;
+}
+
 .inbox-container:hover,
 .today-container:hover,
 .project-sub-container:hover,
 .add-project-container:hover,
-.single-todo-container:hover,
+.single-todo-sub-container:hover,
 .add-todo-container:hover {
     border-radius: 4px;
     background-color: darkgray;
