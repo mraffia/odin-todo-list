@@ -2,10 +2,6 @@ import './style.css';
 import Todo from './todo.js';
 import generatePage from './page.js';
 
-function addProject(listOfProjects, projectName) {
-    listOfProjects[projectName] = [];
-}
-
 function addTodo(listOfProjects, title, description = null, dueDate = null, priority = 4, project = 'Inbox') {
     const newTodo = Todo(idCounter, title, description, dueDate, priority, project);
     idCounter++;
@@ -58,7 +54,6 @@ function currentPage() {
 currentPage();
 
 export {
-    addProject,
     addTodo,
     todoFinder,
     deleteTodo,

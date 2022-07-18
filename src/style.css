@@ -52,10 +52,6 @@ img {
     justify-content: end;
 }
 
-.add-todo-general {
-    margin-right: 20px; 
-}
-
 .sidebar {
     background-color: #3F72AF;
     color: white;
@@ -87,6 +83,15 @@ img {
     margin-left: 10px;
 }
 
+.project-delete-button {
+    margin-left: auto;
+    opacity: 0.8;
+}
+
+.project-delete-button:hover {
+    opacity: 1;
+}
+
 .main-content {
     background-color: #F9F7F7;
     grid-area: main-content;
@@ -99,7 +104,7 @@ img {
 }
 
 .todo-container {
-    width: 1000px;
+    width: 800px;
 }
 
 .single-todo-container,

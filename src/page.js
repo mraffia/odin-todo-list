@@ -6,8 +6,9 @@ import InboxSvg from './images/inbox.svg';
 import ListAltSvg from './images/list_alt.svg';
 import TodaySvg from './images/today.svg';
 import CheckBoxSvg from './images/check_box.svg';
+import CloseSvg from './images/close.svg';
 import Todo from './todo.js';
-import { addProject, addTodo, todoFinder, deleteTodo, editTodo, completeTodo, uncompleteTodo } from './index.js';
+import { addTodo, todoFinder, deleteTodo, editTodo, completeTodo, uncompleteTodo } from './index.js';
 
 let listOfProjects = { "Inbox": [], "Today": [] };
 let idCounter = 0;
@@ -194,14 +195,14 @@ function generatePage() {
 
     formProjectContainer.addEventListener('submit', function (e) {
         e.preventDefault();
-        const key = e.target['project-name'].value;
+        const projectTitle = e.target['project-name'].value;
 
         if (Object.keys(listOfProjects).length > 6) {
             alert("You can't have more than 5 projects!");
-        } else if (key in listOfProjects) {
+        } else if (projectTitle in listOfProjects) {
             alert("You can't have two or more projects with the same name! (case sensitive)");
         } else {
-            addProject(listOfProjects, key);
+            listOfProjects[projectTitle] = [];
         }
 
         formProjectContainer.reset()
@@ -214,22 +215,47 @@ function generatePage() {
     return container;
 }
 
-function createProject(project) {
+function createProjectDisplay(project) {
     const projectSubContainer = document.createElement('div');
     const projectLogo = document.createElement('img');
     const projectName = document.createElement('div');
+    const projectDeleteButton = document.createElement('img');
 
     projectSubContainer.classList.add('project-sub-container');
     projectLogo.classList.add('project-logo');
     projectName.classList.add('project-name');
+    projectDeleteButton.classList.add('project-delete-button');
 
     projectSubContainer.setAttribute('id', project);
 
     projectLogo.src = ListAltSvg;
     projectName.textContent = project;
+    projectDeleteButton.src = CloseSvg;
+
+    projectDeleteButton.style.display = "none";
+
+    projectSubContainer.addEventListener('mouseover', function (e) {
+        projectDeleteButton.style.display = "block";
+    });
+
+    projectSubContainer.addEventListener('mouseout', function (e) {
+        projectDeleteButton.style.display = "none";
+    });
+
+    projectDeleteButton.addEventListener('click', function (e) {
+        const projectTitle = e.target.parentElement.id;
+        const confirmDelete = confirm("Are you sure you want to delete the project \"" + projectTitle + "\"?");
+        if (confirmDelete) {
+            delete listOfProjects[projectTitle];
+            projectContainer.textContent = '';
+            displayAllProjects();
+            console.log(listOfProjects);
+        }
+    });
 
     projectSubContainer.appendChild(projectLogo);
     projectSubContainer.appendChild(projectName);
+    projectSubContainer.appendChild(projectDeleteButton);
 
     return projectSubContainer;
 }
@@ -238,10 +264,16 @@ function displayAllProjects() {
     if (Object.keys(listOfProjects).length > 2) {
         for (const project in listOfProjects) {
             if (project !== "Inbox" && project !== "Today") {
-                projectContainer.appendChild(createProject(project, listOfProjects[project]));
+                projectContainer.appendChild(createProjectDisplay(project, listOfProjects[project]));
             }
         }
     }
+}
+
+function deleteProject(e) {
+    delete listOfProjects[e];
+    projectContainer.textContent = '';
+    displayAllProjects();
 }
 
 export default generatePage;
