@@ -273,7 +273,10 @@ function generatePage() {
     formTodoContainer.addEventListener('submit', function (e) {
         e.preventDefault();
         const todoTitle = e.target['todo-name'].value;
-        const todoDuedate = e.target['todo-duedate'].value;
+        let todoDuedate = e.target['todo-duedate'].value;
+        if (todoDuedate === '') {
+            todoDuedate = "No date";
+        }
         const todoProject = e.target['todo-project'].value;
 
         addTodo(listOfProjects, todoIds, todoTitle, todoDuedate, todoProject);
@@ -348,13 +351,17 @@ function createTodoDisplay(taskIdx, project) {
     const theTodo = listOfProjects[project][taskIdx];
     const singleTodoSubContainer = document.createElement('div');
     const singleTodoLogo = document.createElement('img');
+    const singleTodoContent = document.createElement('div');
     const singleTodoName = document.createElement('div');
+    const singleTodoProject = document.createElement('div');
     const singleTodoDuedate = document.createElement('div');
     const singleTodoDeleteButton = document.createElement('img');
 
     singleTodoSubContainer.classList.add('single-todo-sub-container');
+    singleTodoContent.classList.add('single-todo-content');
     singleTodoLogo.classList.add('single-todo-logo');
     singleTodoName.classList.add('single-todo-name');
+    singleTodoProject.classList.add('single-todo-project');
     singleTodoDuedate.classList.add('single-todo-duedate');
     singleTodoDeleteButton.classList.add('single-todo-delete-button');
 
@@ -362,16 +369,20 @@ function createTodoDisplay(taskIdx, project) {
 
     singleTodoLogo.src = CheckBoxSvg;
     singleTodoName.textContent = theTodo.getTitle();
+    singleTodoProject.textContent = theTodo.getProject();
     singleTodoDuedate.textContent = theTodo.getDuedate();
     singleTodoDeleteButton.src = CloseSvg;
 
     singleTodoDeleteButton.style.display = "none";
+    singleTodoProject.style.display = "none";
 
     singleTodoSubContainer.addEventListener('mouseover', function (e) {
+        singleTodoProject.style.display = "block";
         singleTodoDeleteButton.style.display = "block";
     });
 
     singleTodoSubContainer.addEventListener('mouseout', function (e) {
+        singleTodoProject.style.display = "none";
         singleTodoDeleteButton.style.display = "none";
     });
 
@@ -388,9 +399,11 @@ function createTodoDisplay(taskIdx, project) {
         }
     });
 
+    singleTodoContent.appendChild(singleTodoName);
+    singleTodoContent.appendChild(singleTodoProject);
+    singleTodoContent.appendChild(singleTodoDuedate);
     singleTodoSubContainer.appendChild(singleTodoLogo);
-    singleTodoSubContainer.appendChild(singleTodoName);
-    singleTodoSubContainer.appendChild(singleTodoDuedate);
+    singleTodoSubContainer.appendChild(singleTodoContent);
     singleTodoSubContainer.appendChild(singleTodoDeleteButton);
 
     return singleTodoSubContainer;
@@ -461,8 +474,7 @@ function displayAllTodos(project) {
         // formSingleTodoName.setAttribute('value', theTodo.getTitle());
         // formSingleTodoDuedate.setAttribute('value', theTodo.getDuedate());
         // formSingleTodoProject.setAttribute('value', theTodo.getProject());
-
-        singleTodoContainer.appendChild(formSingleTodoPopUp);
+        // singleTodoContainer.appendChild(formSingleTodoPopUp);
     }
 }
 

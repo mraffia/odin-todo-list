@@ -114,6 +114,13 @@ img {
     padding: 10px;
 }
 
+.single-todo-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .add-todo-container {
     margin: 10px 0 0 0;
 }
@@ -123,10 +130,6 @@ img {
     justify-self: start;
     font-size: 14px;
     margin-left: 10px;
-}
-
-.single-todo-duedate {
-    margin-left: auto;
 }
 
 .single-todo-delete-button {
