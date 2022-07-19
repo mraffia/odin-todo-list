@@ -131,6 +131,7 @@ formProjectPopUp.setAttribute('id', 'projectPopUpForm');
 formProjectName.setAttribute('type', 'text');
 formProjectName.setAttribute('placeholder', 'Project Name');
 formProjectName.setAttribute('name', 'project-name');
+formProjectName.setAttribute('id', 'project-name');
 formProjectSubmit.setAttribute("type", "submit");
 formProjectCancel.setAttribute('type', 'button');
 
@@ -374,15 +375,41 @@ function createTodoDisplay(taskIdx, project) {
     singleTodoDeleteButton.src = CloseSvg;
 
     singleTodoDeleteButton.style.display = "none";
-    singleTodoProject.style.display = "none";
+
+    const formSingleTodoName = document.createElement("input");
+    const formSingleTodoProject = document.createElement("select");
+    const formSingleTodoDuedate = document.createElement("input");
+
+    formSingleTodoName.classList.add('form-single-todo-name');
+    formSingleTodoProject.classList.add('form-single-todo-project');
+    formSingleTodoDuedate.classList.add('form-single-todo-duedate');
+
+    formSingleTodoName.setAttribute("type", "text");
+    formSingleTodoName.setAttribute('placeholder', 'Task name');
+    formSingleTodoName.setAttribute('name', 'single-todo-name');
+    formSingleTodoName.setAttribute('value', theTodo.getTitle());
+    formSingleTodoProject.setAttribute('name', 'single-todo-project');
+    formSingleTodoProject.setAttribute('value', theTodo.getProject());
+    formSingleTodoDuedate.setAttribute('type', 'date');
+    formSingleTodoDuedate.setAttribute('name', 'single-todo-duedate');
+    formSingleTodoDuedate.setAttribute('value', theTodo.getDuedate());
+
+    for (const project in listOfProjects) {
+        const formSingleTodoProjectOption = document.createElement("option");
+        formSingleTodoProjectOption.setAttribute('value', project);
+        formSingleTodoProjectOption.textContent = project;
+        formSingleTodoProject.appendChild(formSingleTodoProjectOption);
+    }
+
+    formSingleTodoName.style.display = "none";
+    formSingleTodoProject.style.display = "none";
+    formSingleTodoDuedate.style.display = "none";
 
     singleTodoSubContainer.addEventListener('mouseover', function (e) {
-        singleTodoProject.style.display = "block";
         singleTodoDeleteButton.style.display = "block";
     });
 
     singleTodoSubContainer.addEventListener('mouseout', function (e) {
-        singleTodoProject.style.display = "none";
         singleTodoDeleteButton.style.display = "none";
     });
 
@@ -399,9 +426,27 @@ function createTodoDisplay(taskIdx, project) {
         }
     });
 
+    singleTodoName.addEventListener('click', function(e) {
+        singleTodoName.style.display = "none";
+        formSingleTodoName.style.display = "block";
+    });
+
+    singleTodoProject.addEventListener('click', function(e) {
+        singleTodoProject.style.display = "none";
+        formSingleTodoProject.style.display = "block";
+    });
+
+    singleTodoDuedate.addEventListener('click', function(e) {
+        singleTodoDuedate.style.display = "none";
+        formSingleTodoDuedate.style.display = "block";
+    });
+
     singleTodoContent.appendChild(singleTodoName);
+    singleTodoContent.appendChild(formSingleTodoName);
     singleTodoContent.appendChild(singleTodoProject);
+    singleTodoContent.appendChild(formSingleTodoProject);
     singleTodoContent.appendChild(singleTodoDuedate);
+    singleTodoContent.appendChild(formSingleTodoDuedate);
     singleTodoSubContainer.appendChild(singleTodoLogo);
     singleTodoSubContainer.appendChild(singleTodoContent);
     singleTodoSubContainer.appendChild(singleTodoDeleteButton);
@@ -412,9 +457,6 @@ function createTodoDisplay(taskIdx, project) {
 function displayAllTodos(project) {
     // const formSingleTodoPopUp = document.createElement('div');
     // const formSingleTodoContainer = document.createElement("form");
-    // const formSingleTodoName = document.createElement("input");
-    // const formSingleTodoDuedate = document.createElement("input");
-    // const formSingleTodoProject = document.createElement("select");
     // const formSingleTodoSubmit = document.createElement("button");
     // const formSingleTodoCancel = document.createElement("button");
 
@@ -422,16 +464,7 @@ function displayAllTodos(project) {
     // formSingleTodoContainer.classList.add('form-single-todo-container');
     // formSingleTodoSubmit.classList.add('btn');
     // formSingleTodoCancel.classList.add('btn-cancel');
-    // formSingleTodoName.classList.add('form-single-todo-name');
-    // formSingleTodoDuedate.classList.add('form-single-todo-duedate');
-    // formSingleTodoProject.classList.add('form-single-todo-project');
 
-    // formSingleTodoName.setAttribute('type', 'text');
-    // formSingleTodoName.setAttribute('placeholder', 'Task name');
-    // formSingleTodoName.setAttribute('name', 'single-todo-name');
-    // formSingleTodoDuedate.setAttribute('type', 'date');
-    // formSingleTodoDuedate.setAttribute('name', 'single-todo-duedate');
-    // formSingleTodoProject.setAttribute('name', 'single-todo-project');
     // formSingleTodoSubmit.setAttribute("type", "submit");
     // formSingleTodoCancel.setAttribute('type', 'button');
 
@@ -439,13 +472,6 @@ function displayAllTodos(project) {
 
     // formSingleTodoSubmit.textContent = "Add";
     // formSingleTodoCancel.textContent = "Cancel";
-
-    // for (const project in listOfProjects) {
-    //     const formSingleTodoProjectOption = document.createElement("option");
-    //     formSingleTodoProjectOption.setAttribute('value', project);
-    //     formSingleTodoProjectOption.textContent = project;
-    //     formSingleTodoProject.appendChild(formSingleTodoProjectOption);
-    // }
 
     // formSingleTodoContainer.appendChild(formSingleTodoName);
     // formSingleTodoContainer.appendChild(formSingleTodoDuedate);
@@ -471,9 +497,7 @@ function displayAllTodos(project) {
         singleTodoContainer.appendChild(createTodoDisplay(i, project));
 
         // const theTodo = listOfProjects[project][i];
-        // formSingleTodoName.setAttribute('value', theTodo.getTitle());
-        // formSingleTodoDuedate.setAttribute('value', theTodo.getDuedate());
-        // formSingleTodoProject.setAttribute('value', theTodo.getProject());
+        
         // singleTodoContainer.appendChild(formSingleTodoPopUp);
     }
 }

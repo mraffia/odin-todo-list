@@ -172,7 +172,7 @@ img {
     border-radius: 4px;
 }
 
-.form-project-container input[type=text] {
+#project-name {
     padding: 16px;
     margin-bottom: 10px;
     border: none;
@@ -182,7 +182,7 @@ img {
     opacity: 0.8;
 }
 
-.form-project-container input[type=text]:focus {
+#project-name:focus {
     opacity: 1;
     outline: none;
 }
@@ -225,9 +225,12 @@ img {
     "todoAdd todoCancel";
 }
 
-.form-todo-container input[type=text],
+#todo-name,
 #todo-project,
-#todo-duedate {
+#todo-duedate,
+.form-single-todo-name,
+.form-single-todo-project,
+.form-single-todo-duedate {
     padding: 16px;
     margin-bottom: 10px;
     border: none;
@@ -236,9 +239,12 @@ img {
     opacity: 0.8;
 }
 
-.form-todo-container input[type=text]:focus
+#todo-name:focus,
 #todo-project:focus,
-#todo-duedate:focus {
+#todo-duedate:focus,
+.form-single-todo-name:focus,
+.form-single-todo-project:focus,
+.form-single-todo-duedate:focus {
     opacity: 1;
     outline: none;
 }
@@ -279,6 +285,16 @@ img {
 
 .form-todo-container button:hover {
     opacity: 1;
+}
+
+.form-single-todo-name,
+.form-single-todo-project,
+.form-single-todo-duedate {
+    margin-bottom: 0;
+}
+
+.form-single-todo-name {
+    margin-left: 10px;
 }
 
 .footer {
