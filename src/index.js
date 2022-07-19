@@ -2,8 +2,8 @@ import './style.css';
 import Todo from './todo.js';
 import generatePage from './page.js';
 
-function addTodo(listOfProjects, id, title, description = '', dueDate = '', priority = 'normal', project = 'Inbox') {
-    const newTodo = Todo(id, title, description, dueDate, priority, project);
+function addTodo(listOfProjects, id, title, duedate = '', project = 'Inbox') {
+    const newTodo = Todo(id, title, duedate, project);
     listOfProjects[project].push(newTodo);
 
     return newTodo;
@@ -26,12 +26,10 @@ function deleteTodo(listOfProjects, project, id) {
     return removedTodo;
 }
 
-function editTodo(listOfProjects, project, id, title, description, dueDate, priority, newProject) {
+function editTodo(listOfProjects, project, id, title, duedate, newProject) {
     let todoIdx = todoFinder(id);
     listOfProjects[project][todoIdx].setTitle(title);
-    listOfProjects[project][todoIdx].setDescription(description);
-    listOfProjects[project][todoIdx].setDueDate(dueDate);
-    listOfProjects[project][todoIdx].setPriority(priority);
+    listOfProjects[project][todoIdx].setDuedate(duedate);
     listOfProjects[project][todoIdx].setProject(newProject);
 }
 

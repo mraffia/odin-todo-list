@@ -1,17 +1,13 @@
-const Todo = (id, title, description = null, dueDate = null, priority = 4, project = 'Inbox') => {
+const Todo = (id, title, duedate = null, project = 'Inbox') => {
     const todoId = id;
     let todoTitle = title;
-    let todoDesc = description;
-    let todoDueDate = dueDate;
-    let todoPriority = priority;
+    let todoDuedate = duedate;
     let todoProject = project;
     let completeStatus = false;
     
     const getId = () => todoId;
     const getTitle = () => todoTitle;
-    const getDescription  = () => todoDesc;
-    const getDueDate = () => todoDueDate;
-    const getPriority = () => todoPriority;
+    const getDuedate = () => todoDuedate;
     const getProject = () => todoProject;
     const getStatus = () => completeStatus;
 
@@ -19,16 +15,8 @@ const Todo = (id, title, description = null, dueDate = null, priority = 4, proje
         todoTitle = newTitle;
     }
 
-    const setDesc = newDesc => {
-        todoDesc = newDesc;
-    }
-
-    const setDueDate = newDueDate => {
-        todoDueDate = newDueDate;
-    }
-
-    const setPriority = newPriority => {
-        todoPriority = newPriority;
+    const setDuedate = newDuedate => {
+        todoDuedate = newDuedate;
     }
 
     const setProject = newProject => {
@@ -46,15 +34,11 @@ const Todo = (id, title, description = null, dueDate = null, priority = 4, proje
     return { 
         getId,
         getTitle, 
-        getDescription, 
-        getDueDate, 
-        getPriority,
+        getDuedate,
         getProject,
         getStatus,
         setTitle,
-        setDesc,
-        setDueDate,
-        setPriority,
+        setDuedate,
         setProject,
         setComplete,
         setUncomplete

@@ -164,11 +164,7 @@ sidebar.appendChild(sidebarMenuProjects);
 const formTodoPopUp = document.createElement('div');
 const formTodoContainer = document.createElement("form");
 const formTodoName = document.createElement("input");
-const formTodoDesc = document.createElement("input");
-const formTodoDueDate = document.createElement("input");
-const formTodoPriority = document.createElement("select");
-const formTodoPriorityUrgent = document.createElement("option");
-const formTodoPriorityNormal = document.createElement("option");
+const formTodoDuedate = document.createElement("input");
 const formTodoProject = document.createElement("select");
 const formTodoSubmit = document.createElement("button");
 const formTodoCancel = document.createElement("button");
@@ -183,29 +179,18 @@ formTodoName.setAttribute('type', 'text');
 formTodoName.setAttribute('placeholder', 'Task name');
 formTodoName.setAttribute('name', 'todo-name');
 formTodoName.setAttribute('id', 'todo-name');
-formTodoDesc.setAttribute('type', 'text');
-formTodoDesc.setAttribute('placeholder', 'Description');
-formTodoDesc.setAttribute('name', 'todo-desc');
-formTodoDesc.setAttribute('id', 'todo-desc');
-formTodoDueDate.setAttribute('type', 'date');
-formTodoDueDate.setAttribute('name', 'todo-duedate');;
-formTodoDueDate.setAttribute('id', 'todo-duedate');
-formTodoPriority.setAttribute('name', 'todo-priority');
-formTodoPriority.setAttribute('id', 'todo-priority');
-formTodoPriorityUrgent.setAttribute('value', 'urgent');
-formTodoPriorityNormal.setAttribute('value', 'normal');
+formTodoDuedate.setAttribute('type', 'date');
+formTodoDuedate.setAttribute('name', 'todo-duedate');;
+formTodoDuedate.setAttribute('id', 'todo-duedate');
 formTodoProject.setAttribute('name', 'todo-project');
 formTodoProject.setAttribute('id', 'todo-project');
 formTodoSubmit.setAttribute("type", "submit");
 formTodoCancel.setAttribute('type', 'button');
 
 formTodoName.required = true;
-formTodoPriorityNormal.selected = true;
 
 formTodoSubmit.textContent = "Add";
 formTodoCancel.textContent = "Cancel";
-formTodoPriorityUrgent.textContent = "Urgent";
-formTodoPriorityNormal.textContent = "Normal";
 
 for (const project in listOfProjects) {
     const formTodoProjectOption = document.createElement("option");
@@ -217,12 +202,8 @@ for (const project in listOfProjects) {
     formTodoProject.appendChild(formTodoProjectOption);
 }
 
-formTodoPriority.appendChild(formTodoPriorityUrgent);
-formTodoPriority.appendChild(formTodoPriorityNormal);
 formTodoContainer.appendChild(formTodoName);
-formTodoContainer.appendChild(formTodoDesc);
-formTodoContainer.appendChild(formTodoDueDate);
-formTodoContainer.appendChild(formTodoPriority);
+formTodoContainer.appendChild(formTodoDuedate);
 formTodoContainer.appendChild(formTodoProject);
 formTodoContainer.appendChild(formTodoSubmit);
 formTodoContainer.appendChild(formTodoCancel);
@@ -292,12 +273,10 @@ function generatePage() {
     formTodoContainer.addEventListener('submit', function (e) {
         e.preventDefault();
         const todoTitle = e.target['todo-name'].value;
-        const todoDesc = e.target['todo-desc'].value;
-        const todoDueDate = e.target['todo-duedate'].value;
-        const todoPriority = e.target['todo-priority'].value;
+        const todoDuedate = e.target['todo-duedate'].value;
         const todoProject = e.target['todo-project'].value;
 
-        addTodo(listOfProjects, todoIds, todoTitle, todoDesc, todoDueDate, todoPriority, todoProject);
+        addTodo(listOfProjects, todoIds, todoTitle, todoDuedate, todoProject);
         todoIds++;
 
         formTodoContainer.reset()
@@ -370,20 +349,20 @@ function createTodoDisplay(taskIdx, project) {
     const singleTodoSubContainer = document.createElement('div');
     const singleTodoLogo = document.createElement('img');
     const singleTodoName = document.createElement('div');
-    const singleTodoDueDate = document.createElement('div');
+    const singleTodoDuedate = document.createElement('div');
     const singleTodoDeleteButton = document.createElement('img');
 
     singleTodoSubContainer.classList.add('single-todo-sub-container');
     singleTodoLogo.classList.add('single-todo-logo');
     singleTodoName.classList.add('single-todo-name');
-    singleTodoDueDate.classList.add('single-todo-duedate');
+    singleTodoDuedate.classList.add('single-todo-duedate');
     singleTodoDeleteButton.classList.add('single-todo-delete-button');
 
     singleTodoSubContainer.setAttribute('id', theTodo.getId());
 
     singleTodoLogo.src = CheckBoxSvg;
     singleTodoName.textContent = theTodo.getTitle();
-    singleTodoDueDate.textContent = theTodo.getDueDate();
+    singleTodoDuedate.textContent = theTodo.getDuedate();
     singleTodoDeleteButton.src = CloseSvg;
 
     singleTodoDeleteButton.style.display = "none";
@@ -411,15 +390,79 @@ function createTodoDisplay(taskIdx, project) {
 
     singleTodoSubContainer.appendChild(singleTodoLogo);
     singleTodoSubContainer.appendChild(singleTodoName);
-    singleTodoSubContainer.appendChild(singleTodoDueDate);
+    singleTodoSubContainer.appendChild(singleTodoDuedate);
     singleTodoSubContainer.appendChild(singleTodoDeleteButton);
 
     return singleTodoSubContainer;
 }
 
 function displayAllTodos(project) {
+    // const formSingleTodoPopUp = document.createElement('div');
+    // const formSingleTodoContainer = document.createElement("form");
+    // const formSingleTodoName = document.createElement("input");
+    // const formSingleTodoDuedate = document.createElement("input");
+    // const formSingleTodoProject = document.createElement("select");
+    // const formSingleTodoSubmit = document.createElement("button");
+    // const formSingleTodoCancel = document.createElement("button");
+
+    // formSingleTodoPopUp.classList.add('form-single-todo-popup');
+    // formSingleTodoContainer.classList.add('form-single-todo-container');
+    // formSingleTodoSubmit.classList.add('btn');
+    // formSingleTodoCancel.classList.add('btn-cancel');
+    // formSingleTodoName.classList.add('form-single-todo-name');
+    // formSingleTodoDuedate.classList.add('form-single-todo-duedate');
+    // formSingleTodoProject.classList.add('form-single-todo-project');
+
+    // formSingleTodoName.setAttribute('type', 'text');
+    // formSingleTodoName.setAttribute('placeholder', 'Task name');
+    // formSingleTodoName.setAttribute('name', 'single-todo-name');
+    // formSingleTodoDuedate.setAttribute('type', 'date');
+    // formSingleTodoDuedate.setAttribute('name', 'single-todo-duedate');
+    // formSingleTodoProject.setAttribute('name', 'single-todo-project');
+    // formSingleTodoSubmit.setAttribute("type", "submit");
+    // formSingleTodoCancel.setAttribute('type', 'button');
+
+    // formSingleTodoName.required = true;
+
+    // formSingleTodoSubmit.textContent = "Add";
+    // formSingleTodoCancel.textContent = "Cancel";
+
+    // for (const project in listOfProjects) {
+    //     const formSingleTodoProjectOption = document.createElement("option");
+    //     formSingleTodoProjectOption.setAttribute('value', project);
+    //     formSingleTodoProjectOption.textContent = project;
+    //     formSingleTodoProject.appendChild(formSingleTodoProjectOption);
+    // }
+
+    // formSingleTodoContainer.appendChild(formSingleTodoName);
+    // formSingleTodoContainer.appendChild(formSingleTodoDuedate);
+    // formSingleTodoContainer.appendChild(formSingleTodoProject);
+    // formSingleTodoContainer.appendChild(formSingleTodoSubmit);
+    // formSingleTodoContainer.appendChild(formSingleTodoCancel);
+    // formSingleTodoPopUp.appendChild(formSingleTodoContainer);
+
+    // singleTodoContainer.addEventListener('click', function (e) {
+    //     if (formSingleTodoPopUp.style.display === 'block') {
+    //         formSingleTodoPopUp.style.display = 'none';
+    //     } else {
+    //         formSingleTodoPopUp.style.display = 'block';
+    //     }
+    // });
+
+    // formSingleTodoCancel.addEventListener('click', function (e) {
+    //     formSingleTodoContainer.reset()
+    //     formSingleTodoPopUp.style.display = "none";
+    // });
+
     for (let i = 0; i < listOfProjects[project].length; i++) {
         singleTodoContainer.appendChild(createTodoDisplay(i, project));
+
+        // const theTodo = listOfProjects[project][i];
+        // formSingleTodoName.setAttribute('value', theTodo.getTitle());
+        // formSingleTodoDuedate.setAttribute('value', theTodo.getDuedate());
+        // formSingleTodoProject.setAttribute('value', theTodo.getProject());
+
+        singleTodoContainer.appendChild(formSingleTodoPopUp);
     }
 }
 
