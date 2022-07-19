@@ -252,10 +252,14 @@ function generatePage() {
             listOfProjects[projectTitle] = [];
         }
 
+        generateProjectOptionsTodo();
+        generateProjectOptionsSingleTodo();
+
         formProjectContainer.reset()
         formProjectPopUp.style.display = "none";
         projectContainer.textContent = '';
         displayAllProjects();
+
         console.log(listOfProjects);
     });
 
@@ -326,9 +330,13 @@ function createProjectDisplay(project) {
         const confirmDelete = confirm("Are you sure you want to delete the project \"" + projectTitle + "\"?");
         if (confirmDelete) {
             delete listOfProjects[projectTitle];
+
+            generateProjectOptionsTodo();
+            generateProjectOptionsSingleTodo();
+            
             projectContainer.textContent = '';
-            console.log(listOfProjects);
             displayAllProjects();
+            console.log(listOfProjects);
         }
     });
 
@@ -340,9 +348,9 @@ function createProjectDisplay(project) {
 }
 
 function displayAllProjects() {
-    if (Object.keys(listOfProjects).length > 2) {
+    if (Object.keys(listOfProjects).length > 1) {
         for (const project in listOfProjects) {
-            if (project !== "Inbox" && project !== "Today") {
+            if (project !== "Inbox") {
                 projectContainer.appendChild(createProjectDisplay(project));
             }
         }
@@ -506,6 +514,38 @@ function displayAllTodos(project) {
         console.log(listOfProjects[project][i].description());
         if (listOfProjects[project][i].getStatus() === false) {
             singleTodoContainer.appendChild(createTodoDisplay(i, project));
+        }
+    }
+}
+
+function generateProjectOptionsTodo() {
+    const formTodoProject = document.querySelector('#todo-project');
+
+    formTodoProject.textContent = '';
+
+    for (const project in listOfProjects) {
+        const formTodoProjectOption = document.createElement("option");
+        formTodoProjectOption.setAttribute('value', project);
+        formTodoProjectOption.textContent = project;
+
+        formTodoProject.appendChild(formTodoProjectOption);
+    }
+}
+
+function generateProjectOptionsSingleTodo() {
+    const formSingleTodoProject = document.querySelector('.form-single-todo-project');
+
+    if (formSingleTodoProject) {
+        formSingleTodoProject.textContent  = '';
+    }
+
+    for (const project in listOfProjects) {
+        const formTodoProjectOption = document.createElement("option");
+        formTodoProjectOption.setAttribute('value', project);
+        formTodoProjectOption.textContent = project;
+
+        if (formSingleTodoProject) {
+            formSingleTodoProject.appendChild(formTodoProjectOption);
         }
     }
 }
