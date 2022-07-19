@@ -434,7 +434,6 @@ function createTodoDisplay(taskIdx, project) {
 
     formSingleTodoName.addEventListener('keydown', function(e) {
         if (e.code === "Enter" && formSingleTodoName.style.display === "block") {
-            console.log(e);
             let newTitle = formSingleTodoName.value;
 
             theTodo.setTitle(newTitle);
@@ -451,9 +450,35 @@ function createTodoDisplay(taskIdx, project) {
         formSingleTodoProject.style.display = "block";
     });
 
+    formSingleTodoProject.addEventListener('keydown', function(e) {
+        if (e.code === "Enter" && formSingleTodoProject.style.display === "block") {
+            let newProject = formSingleTodoProject.value;
+
+            theTodo.setProject(newProject);
+            singleTodoProject.textContent = newProject;
+            singleTodoProject.style.display = "block";
+            formSingleTodoProject.style.display = "none";
+
+            console.log(theTodo.description());
+        }
+    });
+
     singleTodoDuedate.addEventListener('click', function(e) {
         singleTodoDuedate.style.display = "none";
         formSingleTodoDuedate.style.display = "block";
+    });
+
+    formSingleTodoDuedate.addEventListener('keydown', function(e) {
+        if (e.code === "Enter" && formSingleTodoDuedate.style.display === "block") {
+            let newDuedate = formSingleTodoDuedate.value;
+
+            theTodo.setDuedate(newDuedate);
+            singleTodoDuedate.textContent = newDuedate;
+            singleTodoDuedate.style.display = "block";
+            formSingleTodoDuedate.style.display = "none";
+
+            console.log(theTodo.description());
+        }
     });
 
     singleTodoContent.appendChild(singleTodoName);
