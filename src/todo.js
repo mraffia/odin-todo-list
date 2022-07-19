@@ -27,10 +27,6 @@ const Todo = (id, title, duedate = null, project = 'Inbox') => {
         completeStatus = true;
     } 
 
-    const setUncomplete = () => {
-        completeStatus = false;
-    } 
-
     const description = () => `Id: ${todoId} Title: ${todoTitle}, Due date: ${todoDuedate}, Project: ${todoProject}, Complete status: ${completeStatus}`;
 
     return { 
@@ -43,7 +39,6 @@ const Todo = (id, title, duedate = null, project = 'Inbox') => {
         setDuedate,
         setProject,
         setComplete,
-        setUncomplete,
         description
     }
 }

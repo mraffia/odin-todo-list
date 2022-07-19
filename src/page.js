@@ -10,7 +10,8 @@ import CloseSvg from './images/close.svg';
 import Todo from './todo.js';
 import { addTodo, todoFinder, deleteTodo, editTodo, completeTodo, uncompleteTodo } from './index.js';
 
-let listOfProjects = { "Inbox": [], "Today": [] };
+let listOfProjects = { "Inbox": [] };
+let todayTodos= [];
 let todoIds = 0;
 let currentProjectPage = "Inbox";
 
@@ -274,11 +275,11 @@ function generatePage() {
     formTodoContainer.addEventListener('submit', function (e) {
         e.preventDefault();
         const todoTitle = e.target['todo-name'].value;
+        const todoProject = e.target['todo-project'].value;
         let todoDuedate = e.target['todo-duedate'].value;
         if (todoDuedate === '') {
             todoDuedate = "No date";
         }
-        const todoProject = e.target['todo-project'].value;
 
         addTodo(listOfProjects, todoIds, todoTitle, todoDuedate, todoProject);
         todoIds++;
@@ -286,8 +287,8 @@ function generatePage() {
         formTodoContainer.reset()
         formTodoPopUp.style.display = "none";
         singleTodoContainer.textContent = '';
-        displayAllTodos(todoProject);
         console.log(listOfProjects);
+        displayAllTodos(currentProjectPage);
     });
 
     return container;
@@ -326,8 +327,8 @@ function createProjectDisplay(project) {
         if (confirmDelete) {
             delete listOfProjects[projectTitle];
             projectContainer.textContent = '';
-            displayAllProjects();
             console.log(listOfProjects);
+            displayAllProjects();
         }
     });
 
@@ -481,6 +482,12 @@ function createTodoDisplay(taskIdx, project) {
         }
     });
 
+    singleTodoLogo.addEventListener('click', function(e) {
+        theTodo.setComplete();
+        singleTodoContainer.textContent = '';
+        displayAllTodos(project);
+    });
+
     singleTodoContent.appendChild(singleTodoName);
     singleTodoContent.appendChild(formSingleTodoName);
     singleTodoContent.appendChild(singleTodoProject);
@@ -496,7 +503,10 @@ function createTodoDisplay(taskIdx, project) {
 
 function displayAllTodos(project) {
     for (let i = 0; i < listOfProjects[project].length; i++) {
-        singleTodoContainer.appendChild(createTodoDisplay(i, project));
+        console.log(listOfProjects[project][i].description());
+        if (listOfProjects[project][i].getStatus() === false) {
+            singleTodoContainer.appendChild(createTodoDisplay(i, project));
+        }
     }
 }
 
