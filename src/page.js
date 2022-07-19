@@ -350,6 +350,7 @@ function displayAllProjects() {
 
 function createTodoDisplay(taskIdx, project) {
     const theTodo = listOfProjects[project][taskIdx];
+
     const singleTodoSubContainer = document.createElement('div');
     const singleTodoLogo = document.createElement('img');
     const singleTodoContent = document.createElement('div');
@@ -431,6 +432,20 @@ function createTodoDisplay(taskIdx, project) {
         formSingleTodoName.style.display = "block";
     });
 
+    formSingleTodoName.addEventListener('keydown', function(e) {
+        if (e.code === "Enter" && formSingleTodoName.style.display === "block") {
+            console.log(e);
+            let newTitle = formSingleTodoName.value;
+
+            theTodo.setTitle(newTitle);
+            singleTodoName.textContent = newTitle;
+            singleTodoName.style.display = "block";
+            formSingleTodoName.style.display = "none";
+
+            console.log(theTodo.description());
+        }
+    });
+
     singleTodoProject.addEventListener('click', function(e) {
         singleTodoProject.style.display = "none";
         formSingleTodoProject.style.display = "block";
@@ -455,50 +470,8 @@ function createTodoDisplay(taskIdx, project) {
 }
 
 function displayAllTodos(project) {
-    // const formSingleTodoPopUp = document.createElement('div');
-    // const formSingleTodoContainer = document.createElement("form");
-    // const formSingleTodoSubmit = document.createElement("button");
-    // const formSingleTodoCancel = document.createElement("button");
-
-    // formSingleTodoPopUp.classList.add('form-single-todo-popup');
-    // formSingleTodoContainer.classList.add('form-single-todo-container');
-    // formSingleTodoSubmit.classList.add('btn');
-    // formSingleTodoCancel.classList.add('btn-cancel');
-
-    // formSingleTodoSubmit.setAttribute("type", "submit");
-    // formSingleTodoCancel.setAttribute('type', 'button');
-
-    // formSingleTodoName.required = true;
-
-    // formSingleTodoSubmit.textContent = "Add";
-    // formSingleTodoCancel.textContent = "Cancel";
-
-    // formSingleTodoContainer.appendChild(formSingleTodoName);
-    // formSingleTodoContainer.appendChild(formSingleTodoDuedate);
-    // formSingleTodoContainer.appendChild(formSingleTodoProject);
-    // formSingleTodoContainer.appendChild(formSingleTodoSubmit);
-    // formSingleTodoContainer.appendChild(formSingleTodoCancel);
-    // formSingleTodoPopUp.appendChild(formSingleTodoContainer);
-
-    // singleTodoContainer.addEventListener('click', function (e) {
-    //     if (formSingleTodoPopUp.style.display === 'block') {
-    //         formSingleTodoPopUp.style.display = 'none';
-    //     } else {
-    //         formSingleTodoPopUp.style.display = 'block';
-    //     }
-    // });
-
-    // formSingleTodoCancel.addEventListener('click', function (e) {
-    //     formSingleTodoContainer.reset()
-    //     formSingleTodoPopUp.style.display = "none";
-    // });
-
     for (let i = 0; i < listOfProjects[project].length; i++) {
         singleTodoContainer.appendChild(createTodoDisplay(i, project));
-
-        // const theTodo = listOfProjects[project][i];
-        
-        // singleTodoContainer.appendChild(formSingleTodoPopUp);
     }
 }
 

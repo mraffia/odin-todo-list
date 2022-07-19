@@ -145,10 +145,21 @@ img {
 .today-container:hover,
 .project-sub-container:hover,
 .add-project-container:hover,
-.single-todo-sub-container:hover,
 .add-todo-container:hover {
     border-radius: 4px;
     background-color: darkgray;
+    cursor: pointer;
+}
+
+.single-todo-sub-container:hover {
+    border-radius: 4px;
+    background-color: darkgray;
+}
+
+.single-todo-logo:hover,
+.single-todo-name:hover,
+.single-todo-project:hover,
+.single-todo-duedate:hover {
     cursor: pointer;
 }
 
