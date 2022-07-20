@@ -62,7 +62,6 @@ img {
 }
 
 .inbox-container,
-.today-container,
 .project-sub-container,
 .add-project-container  {
     display: flex;
@@ -75,7 +74,6 @@ img {
 }
 
 .inbox-name,
-.today-name,
 .project-name,
 .add-project-name {
     justify-self: start;
@@ -142,7 +140,6 @@ img {
 }
 
 .inbox-container:hover,
-.today-container:hover,
 .project-sub-container:hover,
 .add-project-container:hover,
 .add-todo-container:hover {
@@ -151,7 +148,6 @@ img {
 }
 
 .inbox-name:hover,
-.today-name:hover,
 .project-name:hover,
 .project-delete-button:hover, 
 .add-project-container:hover,

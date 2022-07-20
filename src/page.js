@@ -4,14 +4,12 @@ import DoneAllSvg from './images/done_all.svg';
 import ProfileSvg from './images/account_circle.svg';
 import InboxSvg from './images/inbox.svg';
 import ListAltSvg from './images/list_alt.svg';
-import TodaySvg from './images/today.svg';
 import CheckBoxSvg from './images/check_box.svg';
 import CloseSvg from './images/close.svg';
 import Todo from './todo.js';
 import { addTodo, todoFinder, deleteTodo, editTodo, completeTodo, uncompleteTodo } from './index.js';
 
 let listOfProjects = { "Inbox": [] };
-let todayTodos= [];
 let todoIds = 0;
 let currentProjectPage = "Inbox";
 
@@ -29,9 +27,6 @@ const sidebarMenuProjects = document.createElement('div');
 const inboxContainer = document.createElement('div');
 const inboxLogo = document.createElement('img');
 const inboxName = document.createElement('div');
-const todayContainer = document.createElement('div');
-const todayLogo = document.createElement('img');
-const todayName = document.createElement('div');
 const sidebarTitle = document.createElement('h3');
 const projectContainer = document.createElement('div');
 // const projectLogo = document.createElement('img');
@@ -67,10 +62,6 @@ inboxContainer.classList.add('inbox-container');
 inboxContainer.setAttribute('id', 'Inbox');
 inboxLogo.classList.add('inbox-logo');
 inboxName.classList.add('inbox-name');
-todayContainer.classList.add('today-container');
-todayContainer.setAttribute('id', 'Today');
-todayLogo.classList.add('today-logo');
-todayName.classList.add('today-name');
 sidebarTitle.classList.add('sidebar-title');
 projectContainer.classList.add('project-container');
 // projectLogo.classList.add('project-logo');
@@ -97,8 +88,6 @@ profilePic.src = ProfileSvg;
 
 inboxLogo.src = InboxSvg;
 inboxName.textContent = "Inbox";
-todayLogo.src = TodaySvg;
-todayName.textContent = "Today";
 sidebarTitle.textContent = "Projects";
 // projectLogo.src = ListAltSvg;
 // projectName.textContent = "Some Project";
@@ -150,14 +139,11 @@ formProjectPopUp.appendChild(formProjectContainer);
 
 inboxContainer.appendChild(inboxLogo);
 inboxContainer.appendChild(inboxName);
-todayContainer.appendChild(todayLogo);
-todayContainer.appendChild(todayName);
 // projectContainer.appendChild(projectLogo);
 // projectContainer.appendChild(projectName);
 addProjectContainer.appendChild(addProjectLogo);
 addProjectContainer.appendChild(addProjectName);
 sidebarMenuMain.appendChild(inboxContainer);
-sidebarMenuMain.appendChild(todayContainer);
 sidebarMenuProjects.appendChild(sidebarTitle);
 sidebarMenuProjects.appendChild(projectContainer);
 sidebarMenuProjects.appendChild(addProjectContainer);
@@ -298,7 +284,7 @@ function generatePage() {
     });
 
     inboxName.addEventListener('click', function(e) {
-        const projectTitle = e.target.parentElement.id;
+        const projectTitle = "Inbox";
         currentProjectPage = projectTitle;
         mainTitle.textContent = projectTitle;
         singleTodoContainer.textContent = '';
