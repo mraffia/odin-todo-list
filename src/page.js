@@ -41,7 +41,7 @@ const addProjectLogo = document.createElement('img');
 const addProjectName = document.createElement('div');
 
 const mainContent = document.createElement('div');
-const mainTitle = document.createElement('h1');
+let mainTitle = document.createElement('h1');
 const todoContainer = document.createElement('div');
 const singleTodoContainer = document.createElement('div');
 // const singleTodoLogo = document.createElement('img');
@@ -64,9 +64,11 @@ sidebar.classList.add('sidebar');
 sidebarMenuMain.classList.add('sidebar-menu-main');
 sidebarMenuProjects.classList.add('sidebar-menu-projects');
 inboxContainer.classList.add('inbox-container');
+inboxContainer.setAttribute('id', 'Inbox');
 inboxLogo.classList.add('inbox-logo');
 inboxName.classList.add('inbox-name');
 todayContainer.classList.add('today-container');
+todayContainer.setAttribute('id', 'Today');
 todayLogo.classList.add('today-logo');
 todayName.classList.add('today-name');
 sidebarTitle.classList.add('sidebar-title');
@@ -295,6 +297,14 @@ function generatePage() {
         displayAllTodos(currentProjectPage);
     });
 
+    inboxName.addEventListener('click', function(e) {
+        const projectTitle = e.target.parentElement.id;
+        currentProjectPage = projectTitle;
+        mainTitle.textContent = projectTitle;
+        singleTodoContainer.textContent = '';
+        displayAllTodos(projectTitle);
+    });
+
     return container;
 }
 
@@ -338,6 +348,14 @@ function createProjectDisplay(project) {
             displayAllProjects();
             console.log(listOfProjects);
         }
+    });
+
+    projectName.addEventListener('click', function(e) {
+        const projectTitle = e.target.parentElement.id;
+        currentProjectPage = projectTitle;
+        mainTitle.textContent = projectTitle;
+        singleTodoContainer.textContent = '';
+        displayAllTodos(projectTitle);
     });
 
     projectSubContainer.appendChild(projectLogo);
@@ -468,6 +486,12 @@ function createTodoDisplay(taskIdx, project) {
             singleTodoProject.style.display = "block";
             formSingleTodoProject.style.display = "none";
 
+            let movedTodo = deleteTodo(listOfProjects, project, theTodo.getId());
+            addTodo(listOfProjects, movedTodo[0].getId(), movedTodo[0].getTitle(), movedTodo[0].getDuedate(), newProject);
+
+            singleTodoContainer.textContent = '';
+            displayAllTodos(currentProjectPage);
+
             console.log(theTodo.description());
         }
     });
@@ -480,6 +504,9 @@ function createTodoDisplay(taskIdx, project) {
     formSingleTodoDuedate.addEventListener('keydown', function(e) {
         if (e.code === "Enter" && formSingleTodoDuedate.style.display === "block") {
             let newDuedate = formSingleTodoDuedate.value;
+            if (newDuedate === '') {
+                newDuedate = 'No date'
+            }
 
             theTodo.setDuedate(newDuedate);
             singleTodoDuedate.textContent = newDuedate;
@@ -511,8 +538,7 @@ function createTodoDisplay(taskIdx, project) {
 
 function displayAllTodos(project) {
     for (let i = 0; i < listOfProjects[project].length; i++) {
-        console.log(listOfProjects[project][i].description());
-        if (listOfProjects[project][i].getStatus() === false) {
+        if (listOfProjects[project][i].getStatus() === false && currentProjectPage === project) {
             singleTodoContainer.appendChild(createTodoDisplay(i, project));
         }
     }

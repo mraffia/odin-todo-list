@@ -148,8 +148,17 @@ img {
 .add-todo-container:hover {
     border-radius: 4px;
     background-color: darkgray;
+}
+
+.inbox-name:hover,
+.today-name:hover,
+.project-name:hover,
+.project-delete-button:hover, 
+.add-project-container:hover,
+.add-todo-container:hover {
     cursor: pointer;
 }
+
 
 .single-todo-sub-container:hover {
     border-radius: 4px;
