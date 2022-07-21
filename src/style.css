@@ -12,7 +12,7 @@ img {
 .container {
     height: 100vh;
     display: grid;
-    grid-template-rows: 5vh 91vh 4vh;
+    grid-template-rows: 5vh 1fr 4vh;
     grid-template-columns: 310px 5fr;
     grid-template-areas: 
     "header header"
