@@ -534,6 +534,11 @@ function createTodoDisplay(taskIdx, project) {
             singleTodoDuedate.style.display = "block";
             formSingleTodoDuedate.style.display = "none";
 
+            if (currentProjectPage === "Today") {
+                singleTodoContainer.textContent = '';
+                displayAllTodosToday();
+            }
+
             console.log(theTodo.description());
 
             populateStorage();
