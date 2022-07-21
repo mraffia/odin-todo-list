@@ -32,8 +32,6 @@ const todayLogo = document.createElement('img');
 const todayName = document.createElement('div');
 const sidebarTitle = document.createElement('h3');
 const projectContainer = document.createElement('div');
-// const projectLogo = document.createElement('img');
-// const projectName = document.createElement('div');
 const addProjectContainer = document.createElement('div');
 const addProjectLogo = document.createElement('img');
 const addProjectName = document.createElement('div');
@@ -42,8 +40,6 @@ const mainContent = document.createElement('div');
 let mainTitle = document.createElement('h1');
 const todoContainer = document.createElement('div');
 const singleTodoContainer = document.createElement('div');
-// const singleTodoLogo = document.createElement('img');
-// const singleTodoName = document.createElement('div');
 const addTodoContainer = document.createElement('div');
 const addTodoLogo = document.createElement('img');
 const addTodoName = document.createElement('div');
@@ -71,8 +67,6 @@ todayLogo.classList.add('today-logo');
 todayName.classList.add('today-name');
 sidebarTitle.classList.add('sidebar-title');
 projectContainer.classList.add('project-container');
-// projectLogo.classList.add('project-logo');
-// projectName.classList.add('project-name');
 addProjectContainer.classList.add('add-project-container');
 addProjectLogo.classList.add('add-project-logo');
 addProjectName.classList.add('add-project-name');
@@ -81,8 +75,6 @@ mainContent.classList.add('main-content');
 mainTitle.classList.add('main-title');
 todoContainer.classList.add('todo-container');
 singleTodoContainer.classList.add('single-todo-container');
-// singleTodoLogo.classList.add('single-todo-logo');
-// singleTodoName.classList.add('single-todo-name');
 addTodoContainer.classList.add('add-todo-container');
 addTodoLogo.classList.add('add-todo-logo');
 addTodoName.classList.add('add-todo-name');
@@ -98,14 +90,10 @@ inboxName.textContent = "Inbox";
 todayLogo.src = TodaySvg;
 todayName.textContent = "Today";
 sidebarTitle.textContent = "Projects";
-// projectLogo.src = ListAltSvg;
-// projectName.textContent = "Some Project";
 addProjectLogo.src = PlusMiniSvg;
 addProjectName.textContent = "Add Project";
 
 mainTitle.textContent = currentProjectPage;
-// singleTodoLogo.src = CheckBoxSvg;
-// singleTodoName.textContent = "Some Task";
 addTodoLogo.src = PlusMiniSvg;
 addTodoName.textContent = "Add Task";
 
@@ -150,8 +138,6 @@ inboxContainer.appendChild(inboxLogo);
 inboxContainer.appendChild(inboxName);
 todayContainer.appendChild(todayLogo);
 todayContainer.appendChild(todayName);
-// projectContainer.appendChild(projectLogo);
-// projectContainer.appendChild(projectName);
 addProjectContainer.appendChild(addProjectLogo);
 addProjectContainer.appendChild(addProjectName);
 sidebarMenuMain.appendChild(inboxContainer);
@@ -201,8 +187,6 @@ formTodoContainer.appendChild(formTodoSubmit);
 formTodoContainer.appendChild(formTodoCancel);
 formTodoPopUp.appendChild(formTodoContainer);
 
-// singleTodoContainer.appendChild(singleTodoLogo);
-// singleTodoContainer.appendChild(singleTodoName);
 addTodoContainer.appendChild(addTodoLogo);
 addTodoContainer.appendChild(addTodoName);
 todoContainer.appendChild(mainTitle);
@@ -216,7 +200,7 @@ container.appendChild(sidebar);
 container.appendChild(mainContent);
 container.appendChild(footer);
 
-////////////////////////////////////////////////////////////////////////////////////
+// MAIN FUNCTION
 
 function generatePage() {
     addProjectContainer.addEventListener('click', function (e) {
@@ -323,6 +307,8 @@ function generatePage() {
     return container;
 }
 
+// PROJECTS RELATED FUNCTIONS
+
 function createProjectDisplay(project) {
     const projectSubContainer = document.createElement('div');
     const projectLogo = document.createElement('img');
@@ -390,6 +376,8 @@ function displayAllProjects() {
         }
     }
 }
+
+// TODOS RELATED FUNCTIONS
 
 function createTodoDisplay(taskIdx, project) {
     const theTodo = listOfProjects[project][taskIdx];
@@ -459,7 +447,6 @@ function createTodoDisplay(taskIdx, project) {
 
     singleTodoDeleteButton.addEventListener('click', function (e) {
         const todoId = e.target.parentElement.id;
-        console.log(e.target.parentElement.id);
         const confirmDelete = confirm("Are you sure you want to delete the task?");
         if (confirmDelete) {
             deleteTodo(listOfProjects, currentProjectPage, todoId);
@@ -485,8 +472,6 @@ function createTodoDisplay(taskIdx, project) {
             singleTodoName.style.display = "block";
             formSingleTodoName.style.display = "none";
 
-            console.log(theTodo.description());
-
             populateStorage();
         }
     });
@@ -510,8 +495,6 @@ function createTodoDisplay(taskIdx, project) {
 
             singleTodoContainer.textContent = '';
             displayAllTodos(currentProjectPage);
-
-            console.log(theTodo.description());
 
             populateStorage();
         }
@@ -538,8 +521,6 @@ function createTodoDisplay(taskIdx, project) {
                 singleTodoContainer.textContent = '';
                 displayAllTodosToday();
             }
-
-            console.log(theTodo.description());
 
             populateStorage();
         }
@@ -570,6 +551,20 @@ function displayAllTodos(project) {
     for (let i = 0; i < listOfProjects[project].length; i++) {
         if (listOfProjects[project][i].getStatus() === false && currentProjectPage === project) {
             singleTodoContainer.appendChild(createTodoDisplay(i, project));
+        }
+    }
+}
+
+
+function displayAllTodosToday() {
+    for (const project in listOfProjects) {
+        for (let i = 0; i < listOfProjects[project].length; i++) {
+            let todoDate = new Date(listOfProjects[project][i].getDuedate()).toDateString();
+            let today = new Date().toDateString();
+
+            if (todoDate === today) {
+                singleTodoContainer.appendChild(createTodoDisplay(i, project));
+            }
         }
     }
 }
@@ -606,6 +601,8 @@ function generateProjectOptionsSingleTodo() {
         }
     }
 }
+
+// localStorage RELATED FUNCTIONS
 
 function storageAvailable(type) {
     let storage;
@@ -650,22 +647,6 @@ function setListOfProjectsAndTodos() {
             const todoProject = listOfProjectsJSON[project][i]["todoProject"];
             const todoCompleteStatus = listOfProjectsJSON[project][i]["todoCompleteStatus"];
             addTodo(listOfProjects, todoId, todoTitle, todoDuedate, todoProject, todoCompleteStatus);
-        }
-    }
-
-    console.log(localStorage.getItem('listOfProjects'));
-    console.log(listOfProjects);
-}
-
-function displayAllTodosToday() {
-    for (const project in listOfProjects) {
-        for (let i = 0; i < listOfProjects[project].length; i++) {
-            let todoDate = new Date(listOfProjects[project][i].getDuedate()).toDateString();
-            let today = new Date().toDateString();
-
-            if (todoDate === today) {
-                singleTodoContainer.appendChild(createTodoDisplay(i, project));
-            }
         }
     }
 }

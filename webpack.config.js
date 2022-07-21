@@ -7,9 +7,6 @@ module.exports = {
     index: './src/index.js',
     todo: './src/todo.js',
     page: './src/page.js',
-    inboxPage: './src/inboxPage.js',
-    projectsPage: './src/projectsPage.js',
-    todayPage: './src/todayPage.js',
   },
   devtool: 'inline-source-map',
   devServer: {
