@@ -1,4 +1,4 @@
-const Todo = (id, title, duedate = '', project = 'Inbox', completeStatus = false) => {
+const Todo = (id, title, duedate, project, completeStatus) => {
     const todoId = id;
     let todoTitle = title;
     let todoDuedate = duedate;

@@ -6,7 +6,7 @@ import InboxSvg from './images/inbox.svg';
 import ListAltSvg from './images/list_alt.svg';
 import CheckBoxSvg from './images/check_box.svg';
 import CloseSvg from './images/close.svg';
-import Todo from './todo.js';
+import TodaySvg from './images/today.svg';
 import { addTodo, deleteTodo } from './index.js';
 
 let todoIds = 0;
@@ -27,6 +27,9 @@ const sidebarMenuProjects = document.createElement('div');
 const inboxContainer = document.createElement('div');
 const inboxLogo = document.createElement('img');
 const inboxName = document.createElement('div');
+const todayContainer = document.createElement('div');
+const todayLogo = document.createElement('img');
+const todayName = document.createElement('div');
 const sidebarTitle = document.createElement('h3');
 const projectContainer = document.createElement('div');
 // const projectLogo = document.createElement('img');
@@ -62,6 +65,10 @@ inboxContainer.classList.add('inbox-container');
 inboxContainer.setAttribute('id', 'Inbox');
 inboxLogo.classList.add('inbox-logo');
 inboxName.classList.add('inbox-name');
+todayContainer.classList.add('today-container');
+todayContainer.setAttribute('id', 'Today');
+todayLogo.classList.add('today-logo');
+todayName.classList.add('today-name');
 sidebarTitle.classList.add('sidebar-title');
 projectContainer.classList.add('project-container');
 // projectLogo.classList.add('project-logo');
@@ -88,13 +95,15 @@ profilePic.src = ProfileSvg;
 
 inboxLogo.src = InboxSvg;
 inboxName.textContent = "Inbox";
+todayLogo.src = TodaySvg;
+todayName.textContent = "Today";
 sidebarTitle.textContent = "Projects";
 // projectLogo.src = ListAltSvg;
 // projectName.textContent = "Some Project";
 addProjectLogo.src = PlusMiniSvg;
 addProjectName.textContent = "Add Project";
 
-mainTitle.textContent = "Inbox";
+mainTitle.textContent = currentProjectPage;
 // singleTodoLogo.src = CheckBoxSvg;
 // singleTodoName.textContent = "Some Task";
 addTodoLogo.src = PlusMiniSvg;
@@ -139,11 +148,14 @@ formProjectPopUp.appendChild(formProjectContainer);
 
 inboxContainer.appendChild(inboxLogo);
 inboxContainer.appendChild(inboxName);
+todayContainer.appendChild(todayLogo);
+todayContainer.appendChild(todayName);
 // projectContainer.appendChild(projectLogo);
 // projectContainer.appendChild(projectName);
 addProjectContainer.appendChild(addProjectLogo);
 addProjectContainer.appendChild(addProjectName);
 sidebarMenuMain.appendChild(inboxContainer);
+sidebarMenuMain.appendChild(todayContainer);
 sidebarMenuProjects.appendChild(sidebarTitle);
 sidebarMenuProjects.appendChild(projectContainer);
 sidebarMenuProjects.appendChild(addProjectContainer);
@@ -181,16 +193,6 @@ formTodoName.required = true;
 
 formTodoSubmit.textContent = "Add";
 formTodoCancel.textContent = "Cancel";
-
-for (const project in listOfProjects) {
-    const formTodoProjectOption = document.createElement("option");
-    formTodoProjectOption.setAttribute('value', project);
-    formTodoProjectOption.textContent = project;
-    if (project === 'Inbox') {
-        formTodoProjectOption.selected = true;
-    }
-    formTodoProject.appendChild(formTodoProjectOption);
-}
 
 formTodoContainer.appendChild(formTodoName);
 formTodoContainer.appendChild(formTodoDuedate);
@@ -294,6 +296,14 @@ function generatePage() {
         displayAllTodos(projectTitle);
     });
 
+    todayName.addEventListener('click', function(e) {
+        const projectTitle = "Today";
+        currentProjectPage = projectTitle;
+        mainTitle.textContent = projectTitle;
+        singleTodoContainer.textContent = '';
+        displayAllTodosToday(projectTitle);
+    });
+
     if (storageAvailable('localStorage')) {
         if(!localStorage.getItem('listOfProjects')) {
             populateStorage();
@@ -307,6 +317,8 @@ function generatePage() {
 
     displayAllProjects();
     displayAllTodos(currentProjectPage);
+    generateProjectOptionsTodo();
+    generateProjectOptionsSingleTodo();
 
     return container;
 }
@@ -515,7 +527,7 @@ function createTodoDisplay(taskIdx, project) {
             let newDuedate = formSingleTodoDuedate.value;
             if (newDuedate === '') {
                 newDuedate = 'No date'
-            }
+            } 
 
             theTodo.setDuedate(newDuedate);
             singleTodoDuedate.textContent = newDuedate;
@@ -558,14 +570,15 @@ function displayAllTodos(project) {
 }
 
 function generateProjectOptionsTodo() {
-    const formTodoProject = document.querySelector('#todo-project');
-
     formTodoProject.textContent = '';
 
     for (const project in listOfProjects) {
         const formTodoProjectOption = document.createElement("option");
         formTodoProjectOption.setAttribute('value', project);
         formTodoProjectOption.textContent = project;
+        if (project === 'Inbox') {
+            formTodoProjectOption.selected = true;
+        }
 
         formTodoProject.appendChild(formTodoProjectOption);
     }
@@ -637,6 +650,19 @@ function setListOfProjectsAndTodos() {
 
     console.log(localStorage.getItem('listOfProjects'));
     console.log(listOfProjects);
+}
+
+function displayAllTodosToday() {
+    for (const project in listOfProjects) {
+        for (let i = 0; i < listOfProjects[project].length; i++) {
+            let todoDate = new Date(listOfProjects[project][i].getDuedate()).toDateString();
+            let today = new Date().toDateString();
+
+            if (todoDate === today) {
+                singleTodoContainer.appendChild(createTodoDisplay(i, project));
+            }
+        }
+    }
 }
 
 export default generatePage;
