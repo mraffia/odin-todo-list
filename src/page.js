@@ -9,8 +9,8 @@ import CloseSvg from './images/close.svg';
 import Todo from './todo.js';
 import { addTodo, todoFinder, deleteTodo, editTodo, completeTodo, uncompleteTodo } from './index.js';
 
-let listOfProjects = { "Inbox": [] };
 let todoIds = 0;
+let listOfProjects = { "Inbox": [] };
 let currentProjectPage = "Inbox";
 
 const container = document.createElement('div');
@@ -214,6 +214,8 @@ container.appendChild(sidebar);
 container.appendChild(mainContent);
 container.appendChild(footer);
 
+////////////////////////////////////////////////////////////////////////////////////
+
 function generatePage() {
     addProjectContainer.addEventListener('click', function (e) {
         if (formProjectPopUp.style.display === 'block') {
@@ -248,7 +250,7 @@ function generatePage() {
         projectContainer.textContent = '';
         displayAllProjects();
 
-        console.log(listOfProjects);
+        populateStorage();
     });
 
     addTodoContainer.addEventListener('click', function (e) {
@@ -279,8 +281,9 @@ function generatePage() {
         formTodoContainer.reset()
         formTodoPopUp.style.display = "none";
         singleTodoContainer.textContent = '';
-        console.log(listOfProjects);
         displayAllTodos(currentProjectPage);
+
+        populateStorage();
     });
 
     inboxName.addEventListener('click', function(e) {
@@ -290,6 +293,20 @@ function generatePage() {
         singleTodoContainer.textContent = '';
         displayAllTodos(projectTitle);
     });
+
+    if (storageAvailable('localStorage')) {
+        if(!localStorage.getItem('listOfProjects')) {
+            populateStorage();
+            setListOfProjectsAndTodos();
+        } else {
+            setListOfProjectsAndTodos();
+        }
+    } else {
+        console.log('CAN\'T USE localStorage? BRUH');
+    }
+
+    displayAllProjects();
+    displayAllTodos(currentProjectPage);
 
     return container;
 }
@@ -332,7 +349,8 @@ function createProjectDisplay(project) {
             
             projectContainer.textContent = '';
             displayAllProjects();
-            console.log(listOfProjects);
+
+            populateStorage();
         }
     });
 
@@ -436,7 +454,8 @@ function createTodoDisplay(taskIdx, project) {
 
             singleTodoContainer.textContent = '';
             displayAllTodos(currentProjectPage);
-            console.log(listOfProjects);
+
+            populateStorage();
         }
     });
 
@@ -455,6 +474,8 @@ function createTodoDisplay(taskIdx, project) {
             formSingleTodoName.style.display = "none";
 
             console.log(theTodo.description());
+
+            populateStorage();
         }
     });
 
@@ -479,6 +500,8 @@ function createTodoDisplay(taskIdx, project) {
             displayAllTodos(currentProjectPage);
 
             console.log(theTodo.description());
+
+            populateStorage();
         }
     });
 
@@ -500,6 +523,8 @@ function createTodoDisplay(taskIdx, project) {
             formSingleTodoDuedate.style.display = "none";
 
             console.log(theTodo.description());
+
+            populateStorage();
         }
     });
 
@@ -507,6 +532,8 @@ function createTodoDisplay(taskIdx, project) {
         theTodo.setComplete();
         singleTodoContainer.textContent = '';
         displayAllTodos(project);
+
+        populateStorage();
     });
 
     singleTodoContent.appendChild(singleTodoName);
@@ -560,6 +587,56 @@ function generateProjectOptionsSingleTodo() {
             formSingleTodoProject.appendChild(formTodoProjectOption);
         }
     }
+}
+
+function storageAvailable(type) {
+    let storage;
+    try {
+        storage = window[type];
+        const x = '__storage_test__';
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+    }
+    catch(e) {
+        return e instanceof DOMException && (
+            // everything except Firefox
+            e.code === 22 ||
+            // Firefox
+            e.code === 1014 ||
+            // test name field too, because code might not be present
+            // everything except Firefox
+            e.name === 'QuotaExceededError' ||
+            // Firefox
+            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+            // acknowledge QuotaExceededError only if there's something already stored
+            (storage && storage.length !== 0);
+    }
+}
+
+function populateStorage() {
+    localStorage.setItem('todoIds', todoIds);
+    localStorage.setItem('listOfProjects', JSON.stringify(listOfProjects));
+}
+
+function setListOfProjectsAndTodos() {
+    todoIds = Number(localStorage.getItem('todoIds'));
+    let listOfProjectsJSON = JSON.parse(localStorage.getItem('listOfProjects'));
+
+    for (const project in listOfProjectsJSON) {
+        listOfProjects[project] = [];
+        for (let i = 0; i < listOfProjectsJSON[project].length; i++) {
+            const todoId = listOfProjectsJSON[project][i]["todoId"];
+            const todoTitle = listOfProjectsJSON[project][i]["todoTitle"];
+            const todoDuedate = listOfProjectsJSON[project][i]["todoDuedate"];
+            const todoProject = listOfProjectsJSON[project][i]["todoProject"];
+            const todoCompleteStatus = listOfProjectsJSON[project][i]["todoCompleteStatus"];
+            addTodo(listOfProjects, todoId, todoTitle, todoDuedate, todoProject, todoCompleteStatus);
+        }
+    }
+
+    console.log(localStorage.getItem('listOfProjects'));
+    console.log(listOfProjects);
 }
 
 export default generatePage;
