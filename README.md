@@ -5,7 +5,7 @@ Todo List project from Javascript section of the Full Stack Javascript Course on
 
 
 ### Project Description
-A simple Todo List.
+A Todo List with localStorage implemented.
 
 ### Tools
-HTML, CSS (Flexbox & CSS Grid), and Vanilla Javascript (ES6 modules, webpack).
+HTML, CSS (Flexbox & CSS Grid), and Vanilla Javascript (ES6 modules, webpack, localStorage).

@@ -493,8 +493,13 @@ function createTodoDisplay(taskIdx, project) {
             let movedTodo = deleteTodo(listOfProjects, project, theTodo.getId());
             addTodo(listOfProjects, movedTodo[0].getId(), movedTodo[0].getTitle(), movedTodo[0].getDuedate(), newProject);
 
-            singleTodoContainer.textContent = '';
-            displayAllTodos(currentProjectPage);
+            if (currentProjectPage === "Today") {
+                singleTodoContainer.textContent = '';
+                displayAllTodosToday();
+            } else {
+                singleTodoContainer.textContent = '';
+                displayAllTodos(currentProjectPage);
+            }
 
             populateStorage();
         }
@@ -576,7 +581,7 @@ function generateProjectOptionsTodo() {
         const formTodoProjectOption = document.createElement("option");
         formTodoProjectOption.setAttribute('value', project);
         formTodoProjectOption.textContent = project;
-        if (project === 'Inbox') {
+        if (project === "Inbox") {
             formTodoProjectOption.selected = true;
         }
 
