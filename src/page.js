@@ -7,7 +7,7 @@ import ListAltSvg from './images/list_alt.svg';
 import CheckBoxSvg from './images/check_box.svg';
 import CloseSvg from './images/close.svg';
 import Todo from './todo.js';
-import { addTodo, todoFinder, deleteTodo, editTodo, completeTodo, uncompleteTodo } from './index.js';
+import { addTodo, deleteTodo } from './index.js';
 
 let todoIds = 0;
 let listOfProjects = { "Inbox": [] };
