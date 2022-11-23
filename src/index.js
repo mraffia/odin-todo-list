@@ -32,6 +32,35 @@ function currentPage() {
 
 currentPage();
 
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+  doc,
+  serverTimestamp,
+} from 'firebase/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBbOivadG-ETaxuZV8zEG-iwQ29DpOgmrc",
+  authDomain: "todolistmraffia.firebaseapp.com",
+  projectId: "todolistmraffia",
+  storageBucket: "todolistmraffia.appspot.com",
+  messagingSenderId: "827418678562",
+  appId: "1:827418678562:web:873248e2899da3f10bc17b",
+  measurementId: "G-NDQMFECNC5"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
 export {
     addTodo,
     deleteTodo
