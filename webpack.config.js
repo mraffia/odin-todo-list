@@ -15,6 +15,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Odin Todo List | mraffia',
+      favicon: './favicon.ico',
     }),
   ],
   output: {
