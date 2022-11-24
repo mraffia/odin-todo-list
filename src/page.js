@@ -20,6 +20,7 @@ import {
     updateDoc,
     doc,
     serverTimestamp,
+    getDoc,
 } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -302,21 +303,12 @@ function generatePage() {
         displayAllTodosToday(projectTitle);
     });
 
-    if (storageAvailable('localStorage')) {
-        if(!localStorage.getItem('listOfProjects')) {
-            populateStorage();
-            setListOfProjectsAndTodos();
-        } else {
-            setListOfProjectsAndTodos();
-        }
-    } else {
-        console.log('CAN\'T USE localStorage? BRUH');
-    }
-
-    displayAllProjects();
-    displayAllTodos(currentProjectPage);
-    generateProjectOptionsTodo();
-    generateProjectOptionsSingleTodo();
+    setListOfProjectsAndTodos().then(() => {
+        displayAllProjects();
+        displayAllTodos(currentProjectPage);
+        generateProjectOptionsTodo();
+        generateProjectOptionsSingleTodo();
+    });
 
     return container;
 }
@@ -623,54 +615,57 @@ function generateProjectOptionsSingleTodo() {
 
 // localStorage RELATED FUNCTIONS
 
-function storageAvailable(type) {
-    let storage;
-    try {
-        storage = window[type];
-        const x = '__storage_test__';
-        storage.setItem(x, x);
-        storage.removeItem(x);
-        return true;
-    }
-    catch(e) {
-        return e instanceof DOMException && (
-            // everything except Firefox
-            e.code === 22 ||
-            // Firefox
-            e.code === 1014 ||
-            // test name field too, because code might not be present
-            // everything except Firefox
-            e.name === 'QuotaExceededError' ||
-            // Firefox
-            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-            // acknowledge QuotaExceededError only if there's something already stored
-            (storage && storage.length !== 0);
-    }
-}
+// function storageAvailable(type) {
+//     let storage;
+//     try {
+//         storage = window[type];
+//         const x = '__storage_test__';
+//         storage.setItem(x, x);
+//         storage.removeItem(x);
+//         return true;
+//     }
+//     catch(e) {
+//         return e instanceof DOMException && (
+//             // everything except Firefox
+//             e.code === 22 ||
+//             // Firefox
+//             e.code === 1014 ||
+//             // test name field too, because code might not be present
+//             // everything except Firefox
+//             e.name === 'QuotaExceededError' ||
+//             // Firefox
+//             e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+//             // acknowledge QuotaExceededError only if there's something already stored
+//             (storage && storage.length !== 0);
+//     }
+// }
 
 async function populateStorage() {
-    localStorage.setItem('listOfProjects', JSON.stringify(listOfProjects));
+    // localStorage.setItem('listOfProjects', JSON.stringify(listOfProjects));
 
     try {
-        for (const key in listOfProjects) {
-            for (let i = 0; i < listOfProjects[key].length; i++) {
-                await setDoc(doc(getFirestore(), key, listOfProjects[key][i].getId()), {
-                    todoId: listOfProjects[key][i].getId(),
-                    todoTitle: listOfProjects[key][i].getTitle(),
-                    todoDuedate: listOfProjects[key][i].getDuedate(),
-                    todoProject: listOfProjects[key][i].getProject(),
-                    todoCompleteStatus: listOfProjects[key][i].getStatus(),
-                });
-            }
-        }
+        await setDoc(doc(getFirestore(), 'listOfProjects', 'all'), {
+            projects: JSON.stringify(listOfProjects),
+        });
     }
     catch(error) {
         console.error('Error writing new message to Firebase Database', error);
     }
 }
 
-function setListOfProjectsAndTodos() {
-    let listOfProjectsJSON = JSON.parse(localStorage.getItem('listOfProjects'));
+async function setListOfProjectsAndTodos() {
+    // let listOfProjectsJSON = JSON.parse(localStorage.getItem('listOfProjects'));
+
+    const docRef = doc(getFirestore(), 'listOfProjects', 'all');
+    const docSnap = await getDoc(docRef);
+
+    let listOfProjectsJSON;
+
+    if (docSnap.exists()) {
+        listOfProjectsJSON = JSON.parse(docSnap.data().projects);
+    } else {
+        console.log("Todo List is empty, create a project or a task!");
+    }
 
     for (const project in listOfProjectsJSON) {
         listOfProjects[project] = [];
