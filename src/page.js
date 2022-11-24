@@ -648,8 +648,17 @@ function storageAvailable(type) {
     }
 }
 
-function populateStorage() {
+async function populateStorage() {
     localStorage.setItem('listOfProjects', JSON.stringify(listOfProjects));
+
+    try {
+        await addDoc(collection(getFirestore(), 'listOfProjects'), {
+            projects: JSON.stringify(listOfProjects),
+        });
+    }
+    catch(error) {
+        console.error('Error writing new message to Firebase Database', error);
+    }
 }
 
 function setListOfProjectsAndTodos() {
