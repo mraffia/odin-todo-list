@@ -8,8 +8,21 @@ import CheckBoxSvg from './images/check_box.svg';
 import CloseSvg from './images/close.svg';
 import TodaySvg from './images/today.svg';
 import { addTodo, deleteTodo } from './index.js';
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    query,
+    orderBy,
+    limit,
+    onSnapshot,
+    setDoc,
+    updateDoc,
+    doc,
+    serverTimestamp,
+} from 'firebase/firestore';
+import { v4 as uuidv4 } from 'uuid';
 
-let todoIds = 0;
 let listOfProjects = { "Inbox": [] };
 let currentProjectPage = "Inbox";
 
@@ -261,8 +274,9 @@ function generatePage() {
             todoDuedate = "No date";
         }
 
-        addTodo(listOfProjects, todoIds, todoTitle, todoDuedate, todoProject);
-        todoIds++;
+        const uniqueId = uuidv4();
+
+        addTodo(listOfProjects, uniqueId, todoTitle, todoDuedate, todoProject);
 
         formTodoContainer.reset()
         formTodoPopUp.style.display = "none";
@@ -635,12 +649,10 @@ function storageAvailable(type) {
 }
 
 function populateStorage() {
-    localStorage.setItem('todoIds', todoIds);
     localStorage.setItem('listOfProjects', JSON.stringify(listOfProjects));
 }
 
 function setListOfProjectsAndTodos() {
-    todoIds = Number(localStorage.getItem('todoIds'));
     let listOfProjectsJSON = JSON.parse(localStorage.getItem('listOfProjects'));
 
     for (const project in listOfProjectsJSON) {
