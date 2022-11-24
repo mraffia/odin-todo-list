@@ -652,9 +652,17 @@ async function populateStorage() {
     localStorage.setItem('listOfProjects', JSON.stringify(listOfProjects));
 
     try {
-        await addDoc(collection(getFirestore(), 'listOfProjects'), {
-            projects: JSON.stringify(listOfProjects),
-        });
+        for (const key in listOfProjects) {
+            for (let i = 0; i < listOfProjects[key].length; i++) {
+                await setDoc(doc(getFirestore(), key, listOfProjects[key][i].getId()), {
+                    todoId: listOfProjects[key][i].getId(),
+                    todoTitle: listOfProjects[key][i].getTitle(),
+                    todoDuedate: listOfProjects[key][i].getDuedate(),
+                    todoProject: listOfProjects[key][i].getProject(),
+                    todoCompleteStatus: listOfProjects[key][i].getStatus(),
+                });
+            }
+        }
     }
     catch(error) {
         console.error('Error writing new message to Firebase Database', error);
