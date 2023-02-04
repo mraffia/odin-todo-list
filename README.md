@@ -1,11 +1,22 @@
 # odin-todo-list
 Todo List project from Javascript section of the Full Stack Javascript Course on The Odin Project
 
-### Project Website
+## Project Website
 https://mraffia.github.io/odin-todo-list/
 
-### Project Description
-A Todo List app with Firebase's Cloud Firestore implemented to manage the data (previously, localStorage was used).
+## Project Description
+A todo list app.
 
-### Tools
-HTML, CSS (Flexbox & CSS Grid), Vanilla Javascript (ES6 modules, webpack, localStorage), Firebase.
+## Features
+- Create, edit, and delete todos
+- Setting todos as complete
+- Create, edit, and delete projects
+- View all projects
+- View todos in each project
+
+## Tools
+- HTML
+- CSS
+- Javascript
+- Webpack
+- Firebase (Cloud Firestore)
